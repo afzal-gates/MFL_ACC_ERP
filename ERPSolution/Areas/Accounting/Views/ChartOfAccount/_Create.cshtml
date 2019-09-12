@@ -1,0 +1,42 @@
+﻿<div class="portlet box blue-dark">
+    <div class="portlet-title">
+        <div class="caption">
+           Chart of Account Entry Section
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form class="form-horizontal form-body" name="chartOfAccountForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Parent</label>
+                        <div class="col-md-10">
+                            <input type="text" readonly="readonly" style="background-color:thistle" class="form-control" name="parentCode" ng-model="vm.chartOfAccount.parentCode" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Code</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" readonly="readonly" style="background-color:thistle"  name="parentCode" ng-model="vm.chartOfAccount.code" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Name</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="parentName" ng-model="vm.chartOfAccount.text" />
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="padding-top:10px;padding-left:32px;">
+                        <div class="form-group pull-right">
+                            <button type="button" class="btn btn-sm green"  ng-click="vm.save()">Add</button>
+                            <button type="button" class="btn btn-sm yellow-gold" ng-click="vm.update()">Update</button>
+                            <button type="button" class="btn btn-sm blue" ng-click="vm.delete()">Cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

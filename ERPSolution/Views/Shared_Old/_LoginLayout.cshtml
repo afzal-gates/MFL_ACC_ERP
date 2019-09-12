@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" ng-app="multitex">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MultiTex | Login Form</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="MultiTex ERP" name="description" />
+    <meta content="MultiTrx ERP Development Team" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    @*<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />*@
+    <link href="~/Content/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/assets/admin/pages/css/login.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="~/Content/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/admin/pages/css/todo.css" rel="stylesheet" type="text/css" />
+
+
+    <link href="~/Content/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="~/Content/assets/admin/layout4/css/themes/default.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="login">
+    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+    <div class="menu-toggler sidebar-toggler">
+    </div>
+    <!-- END SIDEBAR TOGGLER BUTTON -->
+    <!-- BEGIN LOGO -->
+    <div class="logo">
+        @*<a href="index.html">
+            <img src="~/Content/assets/admin/layout4/img/logo-big.png" alt=""/>
+        </a>*@
+        <span style="font-size:30px;color:white">MultiTex</span>
+        <span style="font-size:30px;color:chocolate">ERP</span>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN LOGIN -->
+    @RenderBody()
+    <div class="copyright">
+        2015 © MultiTex ERP: Multifabs Ltd.
+    </div>
+    <!-- END LOGIN -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    <script src="../../assets/global/plugins/respond.min.js"></script>
+    <script src="../../assets/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="~/Content/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/angular.js" type="text/javascript"></script>
+    @*<script src="~/Content/assets/global/plugins/angularjs/angular.min.js" type="text/javascript"></script>*@
+    <script src="~/Content/kendo/js/kendo.all.min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+
+
+
+    @*<script src="~/Content/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>*@
+    <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    @*<script src="~/Content/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>*@
+    <script src="~/Content/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    @*<script src="~/Content/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>*@
+    <script src="~/Content/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    @*<script src="~/Content/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="~/Content/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+        <script src="~/Content/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+        <script src="~/Content/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>*@
+    <!-- END CORE PLUGINS -->
+
+
+
+    <script src="~/Scripts/angular-route.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/angular-animate.js"></script>
+    <script src="~/Scripts/ngplus-overlay.js"></script>
+
+
+    @*<script src="~/Content/kendo/js/kendo.angular.min.js"></script>*@
+
+    <script src="~/Scripts/angular-sanitize.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/angularjs/angular-touch.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/angularjs/plugins/angular-ui-router.min.js" type="text/javascript"></script>
+    <script src="~/Content//assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls-0.12.1.min.js" type="text/javascript"></script>
+    <script src="~/Content//assets/global/plugins/toastr/toastr.min.js" type="text/javascript"></script>
+    <script src="~/Content//assets/global/plugins/moment.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/angularjs/angular-messages.js"></script>
+    <script src="~/Content/assets/global/plugins/angularjs/ui-utils.js"></script>
+    @*<script src="~/Content/assets/global/plugins/angularjs/ng-bs-daterangepicker.js"></script>*@
+    @*<script src="~/Content/assets/global/plugins/angularjs/angular-re-captcha.js"></script>*@
+
+
+    <!-- endinject -->
+    <!-- inject:js -->
+    <!-- Bootstrapping -->
+    <script src="~/Client/app/app.module.js"></script>
+
+
+    <!-- Reusable Blocks/Modules -->
+    <script src="~/Client/app/blocks/exception/exception.module.js"></script>
+    <script src="~/Client/app/blocks/exception/exception-handler.provider.js"></script>
+    <script src="~/Client/app/blocks/exception/exception.js"></script>
+    <script src="~/Client/app/blocks/logger/logger.module.js"></script>
+    <script src="~/Client/app/blocks/logger/logger.js"></script>
+    <!-- core module -->
+    <script src="~/Client/app/core/core.module.js"></script>
+    <script src="~/Client/app/core/constants.js"></script>
+    <script src="~/Client/app/core/config.js"></script>
+    <script src="~/Client/app/core/core.route.js"></script>
+
+    <script src="~/Client/app/directives/widgets.module.js"></script>
+
+    <script src="~/Client/app/blocks/router/router.module.js"></script>
+    <script src="~/Client/app/blocks/router/routehelper.js"></script>
+
+
+    <!--Features Module-->
+    <script src="~/Areas/Security/Client/app/security.module.js"></script>
+    <script src="~/Areas/Admin/Client/app/admin.module.js"></script>
+    <script src="~/Areas/Test/Client/app/test.module.js"></script>
+    <script src="~/Areas/Hr/Client/app/hr.module.js"></script>
+    <script src="~/Areas/Admin/Client/app/directives/admin.widgets.js"></script>
+    <script src="~/Areas/Hr/Client/app/directives/hr.widgets.js"></script>
+
+
+
+    <!-- BEGIN PAGE PLUGINS & SCRIPTS -->
+    @*<script type="text/javascript" src="~/Content/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>*@
+    @*<script type="text/javascript" src="~/Content/assets/global/plugins/select2/select2.min.js"></script>*@
+    <script type="text/javascript" src="~/Content/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+    <script src="~/Content/assets/admin/pages/scripts/todo.js" type="text/javascript"></script>
+    <!-- END PAGE PLUGINS & SCRIPTS -->
+    <script src="~/Content/assets/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="~/Content/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+    <script src="~/Content/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+    @*<script src="~/Content/assets/admin/pages/scripts/table-managed.js"></script>*@
+
+
+
+    <script src="~/Areas/Security/Client/app/controllers/ScUserController.js"></script>
+    <script src="~/Areas/Security/Client/app/directives/DirPasswordCompare.js"></script>
+
+    
+    <script>
+        jQuery(document).ready(function () {
+            Metronic.init(); // init metronic core components
+            Layout.init(); // init current layout
+            Login.init();
+            Demo.init();
+        });
+    </script>
+    <!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

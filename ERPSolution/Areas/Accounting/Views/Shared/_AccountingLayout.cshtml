@@ -1,0 +1,93 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                @RenderBody()
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+<!-- END CONTENT -->
+@if (IsSectionDefined("scripts"))
+{
+    @section scripts{
+
+    }
+}
+
+
+@section angularscripts
+    {
+    <script src="~/Areas/Accounting/Client/app/directives/accounting.directives.js"></script>
+    <script src="~/Areas/Accounting/Client/app/services/dataConstants.js"></script>
+    <script src="~/Areas/Accounting/Client/app/services/apiHttpService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/services/notificationService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/services/accountingDataService.js?v=1"></script>
+    <script src="~/Areas/Accounting/Client/app/config.accountingRoute.js?v=1"></script>
+    <script src="~/Areas/Accounting/Client/app/services/voucherTypeService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/voucherTypeAddController.js?v=1"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/voucherTypeListController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/services/chartOfAccountService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/chartOfAccountController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/services/costCenterService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/costCentersController.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/costCenterAddController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/services/voucherMasterService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/voucherMastersController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/services/draftVoucherService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/draftVouchersController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/services/companyService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/companiesController.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/companyAddController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/controllers/ledgerReportController.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/controlLedgerReportController.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/trialBalanceReportController.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/voucherSummaryReportController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/services/unilayerChartOfAccountService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/unilayerChartOfAccountController.js"></script>
+
+
+    <script src="~/Areas/Accounting/Client/app/services/paymentModeService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/paymentModesController.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/paymentModeAddController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/controllers/cashBookReportController.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/bankBookReportController.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/dayBookReportController.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/ReceivePaymentReportController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/services/currencyService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/currenciesController.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/currencyAddController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/services/checkerMakerService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/checkerMakersControlle.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/controllers/CostCenterLedgerReportController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/services/costCenterGroupService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/costCenterGroupsController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/controllers/costCenterGroupAddController.js"></script>
+
+    <script src="~/Areas/Accounting/Client/app/services/stockClosingService.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/stockClosingController.js"></script>
+    <script src="~/Areas/Accounting/Client/app/controllers/bankReconcileVouchersController.js"></script>
+
+}

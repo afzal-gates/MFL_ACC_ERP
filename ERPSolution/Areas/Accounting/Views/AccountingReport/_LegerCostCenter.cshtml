@@ -1,0 +1,159 @@
+﻿<style>
+    .dropdown-header {
+        background: #566170;
+        color: #ffffff;
+        font-size: 1.2em;
+        padding: 0;
+    }
+
+        .dropdown-header > span {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            text-align: left;
+            display: inline-block;
+            padding: 2px 10px;
+        }
+
+            .dropdown-header > span:first-child {
+                width: 22%;
+                border-right: 1px solid #fff;
+            }
+
+            .dropdown-header > span:last-child {
+                width: 80%;
+            }
+
+    .selected-value {
+        float: left;
+        width: 20px;
+        margin: 0 4px;
+    }
+
+    #customers-list .k-item > span {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline-block;
+        border-style: solid;
+        border-width: 0 0 1px 1px;
+        vertical-align: top;
+        min-height: 95px;
+        width: 79%;
+        padding: .6em 0 0 .6em;
+    }
+
+        #customers-list .k-item > span:first-child {
+            width: 77px;
+            border-left-width: 0;
+            padding: .6em 0 0 0;
+        }
+
+    #customers-list img {
+        -moz-box-shadow: 0 0 2px rgba(0,0,0,.4);
+        -webkit-box-shadow: 0 0 2px rgba(0,0,0,.4);
+        box-shadow: 0 0 2px rgba(0,0,0,.4);
+        width: 70px;
+        height: 70px;
+    }
+
+    /*#customers-list h3 {
+        font-size: 1.6em;
+        margin: 0;
+        padding: 0;
+    }*/
+
+    #customers-list p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .k-list {
+        border: 1px solid #ddd;
+    }
+
+    .k-item {
+        border-bottom: 1px solid #ddd;
+    }
+
+        .k-item .k-state-default:first-child {
+            padding-left: 5px;
+            float: left;
+            width: 20.8%;
+            border-right: 1px solid #aaa;
+        }
+
+        .k-item .k-state-default:last-child {
+        }
+
+            .k-item .k-state-default:last-child p {
+                margin-bottom: 0;
+            }
+     span.k-datepicker {
+         width: 100%;
+    }
+     .table thead {
+        background: #bbb;
+    }
+
+    .table > tbody > tr > td {
+        border: 1px solid #ccc;
+    }
+</style>
+
+<div class="header-title">
+    <h2>Ledger Cost Center</h2>
+</div>
+<div class="portlet box blue-dark">
+    <div class="portlet-title">
+        <div class="caption">
+            Ledger Cost Center Report
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form class="form-horizontal form-body" name="vm.from">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table">
+                        <tr>
+                            <td>
+                                From Date
+                            </td>
+                            <td>
+                                <input kendo-date-picker ng-model="vm.fromdate" k-format="'dd-MMM-yyyy'" required/>
+                            </td>
+
+                            <td>
+                                To Date
+                            </td>
+                            <td>
+                                <input kendo-date-picker ng-model="vm.todate" k-format="'dd-MMM-yyyy'" required/>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                Account Head
+                            </td>
+                            <td colspan="2">
+                                <input required kendo-auto-complete k-ng-model="selectedItem" k-options="vm.options" k-ng-delay="vm.options" class="form-control" style="width: 100%;background: #cccccc;height: 26px;border: 1px solid #aaa;border-radius: 2px;" />
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Export
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <button ng-click="vm.showLedgerCostCenterReport(1)" ng-disabled="vm.form.$invalid" class="btn">Pdf</button>
+                                        <button ng-click="vm.showLedgerCostCenterReport(3)" ng-disabled="vm.form.$invalid" class="btn">Excel</button>
+                                    </div>
+                                </div>
+                            </td>
+                           
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

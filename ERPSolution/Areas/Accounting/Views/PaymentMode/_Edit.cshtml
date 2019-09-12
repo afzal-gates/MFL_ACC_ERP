@@ -1,0 +1,95 @@
+﻿<style>
+    .k-grid {
+        font-size: 12px;
+    }
+
+    .k-grid-header th.k-header > .k-link {
+        /*padding-right: 0 !important;*/
+        font-size: 12px;
+    }
+
+    .k-grid-content {
+        height: 200px;
+    }
+</style>
+
+
+<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="index.html">MultiTex ERP</a>
+
+    </li>
+    <li>
+        <a href="#">Accounting</a>
+
+    </li>
+    <li>
+        <a href="#">{{vm.Title}}</a>
+    </li>
+</ul>
+
+
+<div id="splash-page" data-ng-show="vm.showSplash" class="dissolve-animation">
+    <div class="page-splash">
+        <div class="page-splash-message">
+            <img src="~/Content/assets/global/img/ajax-loading.gif" />  <b>Please wait ....</b>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box blue-dark">
+    <div class="portlet-title">
+        <div class="caption">
+            {{vm.Title}}
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form class="form-horizontal form-body" name="vm.form">
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset class="custom-fieldset" style="margin-bottom:5px">
+                        <legend class="custom-legend"></legend>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">CODE</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-readonly="true" name="REF_CODE" ng-model="vm.paymentMode.REF_CODE" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">Name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="PM_NAME" ng-model="vm.paymentMode.PM_NAME" required />
+                                <p ng-show="vm.form.PM_NAME.$error.required" class="help-block errormsg"> Name is required</p>
+                                <p ng-show="vm.form.PM_NAME.$error.maxlength" class="help-block errormsg">Maximum length 10 characters</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">Short Name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="PREFIX" ng-model="vm.paymentMode.SHORT_NAME" required min="3" max="10" />
+                                <p ng-show="vm.form.SHORT_NAME.$error.required" class="help-block errormsg">Company Prefix is required</p>
+                                <p ng-show="vm.form.SHORT_NAME.$error.maxlength" class="help-block errormsg">Maximum length 3 characters</p>
+                                <p ng-show="vm.form.SHORT_NAME.$error.minlength" class="help-block errormsg">Minimum length 10 characters</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">Remarks</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="PREFIX" ng-model="vm.paymentMode.REMARKS"  />
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="col-md-12" style="padding-top:10px;padding-left:32px;">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-sm green" ng-click="vm.save()" ng-disabled="vm.form.$invalid" ng-show="vm.paymentMode.PAYMENT_MODE_ID<1" ng-class="{'disabled':!vm.form.$valid}">Save</button>
+                            <button type="button" class="btn btn-sm yellow-gold" ng-disabled="vm.form.$invalid" ng-click="vm.save()" ng-show="vm.paymentMode.PAYMENT_MODE_ID>0" ng-class="{'disabled':!vm.form.$valid}"> Update</button>
+                            <button type="button" class="btn btn-sm blue" ng-click="vm.close()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+

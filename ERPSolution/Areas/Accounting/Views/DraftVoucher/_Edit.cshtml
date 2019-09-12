@@ -1,0 +1,87 @@
+﻿<div class="portlet box blue-dark" style="margin-bottom: 0; border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
+    <div class="portlet-title">
+        <div class="caption">
+            DRAFT VOUCHER ENTRY
+        </div>
+    </div>
+    <div class="portlet-body" style="border-radius: 0;overflow:hidden">
+        <div class="portlet-body">
+            <form class="form-horizontal form-body" name="vm.voucherForm">
+                <div class="form-group">
+                    <label class="control-label col-md-4 pr-zero"> Voucher Ref</label>
+                    <div class="col-md-8 pl-zero">
+                        <input type="text" class="form-control" style="background-color:honeydew ;" ng-model="vm.voucher.POST_ID" name="POST_ID" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4 pr-zero"> Voucher No</label>
+                    <div class="col-md-8 pl-zero">
+                        <input type="text" class="form-control" name="VOUCHER_NO" ng-model="vm.voucher.VOUCHER_NO" required />
+                        <p ng-show="vm.voucherForm.VOUCHER_NO.$error.required" class="help-block errormsg">Voucher Number is required</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4 pr-zero">Date</label>
+                    <div class="col-md-8 pl-zero">
+                        <input kendo-date-picker k-ng-model="vm.voucher.POST_DATE" k-format="'dd-MMM-yyyy'" name="POST_DATE" required />
+                        <p ng-show="vm.voucherForm.POST_DATE.$error.required" class="help-block errormsg">Voucher Date is required</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4 pr-zero">Type</label>
+                    <div class="col-md-8 pl-zero">
+                        <select name="VOUCHER_TYPE_ID" id="VOUCHER_TYPE_ID" class="form-control" ng-model="vm.voucher.VOUCHER_TYPE_ID" ng-options="option.Value as option.Text for option in vm.voucherTypes" ng-change="vm.VisisbileChecq(vm.voucher.VOUCHER_TYPE_ID)" required></select>
+                        <p ng-show="vm.voucherForm.VOUCHER_TYPE_ID.$error.required" class="help-block errormsg">Select Voucher Type</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.isChecqVisisbile">
+                    <label class="control-label col-md-4 pr-zero">Payment Mode</label>
+                    <div class="col-md-8 pl-zero">
+                        <select name="PAYMENT_MODE_ID" id="PAYMENT_MODE_ID" class="form-control" ng-model="vm.voucher.PAYMENT_MODE_ID" ng-options="option.PAYMENT_MODE_ID as option.PM_NAME for option in vm.paymentModes" ng-change="vm.ChangeLabelName(vm.voucher.PAYMENT_MODE_ID)" required>
+                            <option value="">-Select Payment Mode-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.isChecqVisisbile">
+                    <label class="control-label col-md-4 pr-zero">{{vm.levelText }} NO</label>
+                    <div class="col-md-8 pl-zero">
+                        <input type="text" class="form-control" name="CHQ_NO" ng-model="vm.voucher.CHQ_NO" />
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.isChecqVisisbile">
+                    <label class="control-label col-md-4 pr-zero">{{vm.levelText }} DATE</label>
+                    <div class="col-md-8 pl-zero">
+                        <input kendo-date-picker
+                               k-ng-model="vm.voucher.CHQ_DATE"
+                               k-format="'dd-MMM-yyyy'" />
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.isCashVisisbile">
+                    <label class="control-label col-md-4 pr-zero">Pay Type</label>
+                    <div class="col-md-8 pl-zero">
+                        <label class=" radio-inline">
+                            <input type="radio" name="payType" value="A" ng-model="vm.voucher.PAY_TYPE">
+                            AC/PAY
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="payType" value="C" ng-model="vm.voucher.PAY_TYPE">
+                            CASH
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.isCashVisisbile">
+                    <label class="control-label col-md-4 pr-zero">Account Name</label>
+                    <div class="col-md-8 pl-zero">
+                        <input type="text" class="form-control" name="ACNT_NAME" ng-model="vm.voucher.ACNT_NAME" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div kendo-window="vm.modal" k-visible="false" k-modal="true">
+    Are you sure you want to delete: {{vm.VOUCHER_NO}}
+    <button ng-click="vm.deleteVoucher()">Yes</button>
+    <button ng-click="vm.closeModal()">No</button>
+</div>

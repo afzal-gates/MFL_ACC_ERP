@@ -1,0 +1,101 @@
+﻿<style>
+    .k-grid {
+        font-size: 12px;
+    }
+
+    .k-grid-header th.k-header > .k-link {
+        /*padding-right: 0 !important;*/
+        font-size: 12px;
+    }
+
+    .k-grid-content {
+        height: 200px;
+    }
+</style>
+
+
+
+
+
+<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="index.html">MultiTex ERP</a>
+
+    </li>
+    <li>
+        <a href="#">Accounting</a>
+
+    </li>
+    <li>
+        <a href="#">{{vm.Title}}</a>
+    </li>
+</ul>
+
+
+<div id="splash-page" data-ng-show="vm.showSplash" class="dissolve-animation">
+    <div class="page-splash">
+        <div class="page-splash-message">
+            <img src="~/Content/assets/global/img/ajax-loading.gif" />  <b>Please wait ....</b>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box blue-dark">
+    <div class="portlet-title">
+        <div class="caption">
+            {{vm.Title}}
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form class="form-horizontal form-body" name="vm.costCenterForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset class="custom-fieldset" style="margin-bottom:5px">
+                        <legend class="custom-legend"></legend>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                Code
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-readonly="true" name="COST_CENTER_CODE" ng-model="vm.costCenter.COST_CENTER_CODE" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                Name
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="COST_CENTER_NAME" ng-model="vm.costCenter.COST_CENTER_NAME" required />
+                                <p ng-show="vm.costCenterForm.COST_CENTER_NAME.$error.required" class="help-block errormsg">Cost Center is required</p>
+                                <p ng-show="vm.costCenterForm.COST_CENTER_NAME.$error.maxlength" class="help-block errormsg">Maximum length 50 characters</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">Group</label>
+                            <div class="col-md-10 pl-zero">
+                                <select name="GROUP_ID" id="GROUP_ID" class="form-control" ng-model="vm.costCenter.GROUP_ID" ng-options="option.GROUP_ID as option.NAME for option in vm.groups" required></select>
+                                <p ng-show="vm.costCenterForm.GROUP_ID.$error.required" class="help-block errormsg">Select Group</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">Remarks</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" name="REMARKS" ng-model="vm.costCenter.REMARKS" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="col-md-12" style="padding-top:10px;padding-left:32px;">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-sm green" ng-click="vm.save()" ng-disabled="vm.costCenterForm.$invalid" ng-show="vm.costCenter.COST_CENTER_ID<1" ng-class="{'disabled':!vm.costCenterForm.$valid}">Save</button>
+                            <button type="button" class="btn btn-sm yellow-gold" ng-disabled="vm.costCenterForm.$invalid" ng-click="vm.save()" ng-show="vm.costCenter.COST_CENTER_ID>0" ng-class="{'disabled':!vm.costCenterForm.$valid}"> Update</button>
+                            <button type="button" class="btn btn-sm blue" ng-click="vm.close()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+

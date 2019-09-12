@@ -1,0 +1,106 @@
+﻿<style>
+    .k-grid {
+        font-size: 12px;
+    }
+
+    .k-grid-header th.k-header > .k-link {
+        /*padding-right: 0 !important;*/
+        font-size: 12px;
+    }
+
+    .k-grid-content {
+        height: 200px;
+    }
+</style>
+
+
+
+
+
+<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="index.html">MultiTex ERP</a>
+
+    </li>
+    <li>
+        <a href="#">Accounting</a>
+
+    </li>
+    <li>
+        <a href="#">{{vm.Title}}</a>
+    </li>
+</ul>
+
+
+<div id="splash-page" data-ng-show="vm.showSplash" class="dissolve-animation">
+    <div class="page-splash">
+        <div class="page-splash-message">
+            <img src="~/Content/assets/global/img/ajax-loading.gif" />  <b>Please wait ....</b>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box blue-dark">
+    <div class="portlet-title">
+        <div class="caption">
+            {{vm.Title}}
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form class="form-horizontal form-body" name="vm.currencyForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset class="custom-fieldset" style="margin-bottom:5px">
+                        <legend class="custom-legend"></legend>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                Formal Name
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="COST_CENTER_NAME" ng-model="vm.currency.FORMAL_NAME" required />
+                                <p ng-show="vm.currencyForm.COST_CENTER_NAME.$error.required" class="help-block errormsg">Cost Center is required</p>
+                                <p ng-show="vm.currencyForm.COST_CENTER_NAME.$error.maxlength" class="help-block errormsg">Maximum length 50 characters</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                Symbol
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="SYMBOL" ng-model="vm.currency.SYMBOL" required />
+                                <p ng-show="vm.currencyForm.SYMBOL.$error.required" class="help-block errormsg">Symbol is required</p>
+                                <p ng-show="vm.currencyForm.SYMBOL.$error.maxlength" class="help-block errormsg">Maximum length 3 characters</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                               Rate
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="RATE" ng-model="vm.currency.RATE" required />
+                                <p ng-show="vm.currencyForm.RATE.$error.required" class="help-block errormsg">Rate is required</p>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Remarks</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" name="REMARKS" ng-model="vm.currency.REMARKS" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="col-md-12" style="padding-top:10px;padding-left:32px;">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-sm green" ng-click="vm.save()" ng-disabled="vm.currencyForm.$invalid" ng-show="vm.currency.CURRENCY_ID<1" ng-class="{'disabled':!vm.currencyForm.$valid}">Save</button>
+                            <button type="button" class="btn btn-sm yellow-gold" ng-disabled="vm.currencyForm.$invalid" ng-click="vm.save()" ng-show="vm.currency.CURRENCY_ID>0" ng-class="{'disabled':!vm.currencyForm.$valid}"> Update</button>
+                            <button type="button" class="btn btn-sm blue" ng-click="vm.close()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+

@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="portlet box blue-dark">
+    <div class="portlet-title">
+        <div class="caption">
+             Balance Sheet
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form class="form-horizontal form-body" name="vm.from">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table">
+                        <tr>
+                            <td>
+                                Balance Date
+                            </td>
+                            <td>
+                                <input kendo-date-picker ng-model="vm.fromdate" k-format="'dd-MMM-yyyy'" required />
+                            </td>
+
+                            <td>
+                                Referance Date
+                            </td>
+                            <td>
+                                <input kendo-date-picker ng-model="vm.todate" k-format="'dd-MMM-yyyy'" required />
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Export
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <button ng-click="vm.showBalanceSheetReport(1)" ng-disabled="vm.form.$invalid" class="btn">Pdf</button>
+                                        <button ng-click="vm.showBalanceSheetReport(3)" ng-disabled="vm.form.$invalid" class="btn">Excel</button>
+                                    </div>
+                                </div>
+                                
+                            </td>
+                         
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

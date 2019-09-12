@@ -1,0 +1,21 @@
+﻿<div class="content">
+    <div class="panel">
+        <div class="header-title">
+            <h2>Payment Mode</h2>
+            <div class="action-wrapper">
+                <input type="text" ng-model="vm.searchKey" placeholder="Search Item.."  ng-keypress="$event.keyCode == 13 && vm.search()"/>
+                <a ng-href='#paymentmode/0' class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> ADD</a>
+            </div>
+        </div>
+        <div class="table-wrapper table-responsive">
+            <div kendo-grid k-options="vm.gridOption" k-data-source="vm.gridDataSource"></div>
+        </div>
+    </div>
+</div>
+<div kendo-window="vm.modal" k-visible="false" k-modal="true">
+    Are you sure you want to delete: {{vm.PM_NAME}}
+    <button ng-click="vm.deletePaymentMode(vm.PAYMENT_MODE_ID)">Yes</button>
+    <button ng-click="vm.closeModal()">No</button>
+</div>
+
+

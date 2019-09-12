@@ -1,0 +1,56 @@
+﻿
+<form name="stockClosingForm">
+
+    <div class="content">
+        <div class="panel">
+            <div class="header-title">
+                <h2>Stock Closing</h2>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">Year</label>
+                <div class="col-md-3 pl-zero">
+                    <select name="year_code" id="year_code" class="form-control" ng-model="vm.year_code" ng-options="option  for option in vm.years" ng-change="vm.ShowStock()" required>
+                        <option value='0'>Select Year</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">Month</label>
+                <div class="col-md-3 pl-zero">
+                    <select name="month_code" id="month_code" class="form-control" ng-model="vm.month_code" ng-options="option.Value as option.Text for option in vm.months" ng-change="vm.ShowStock()" required>
+                        <option value='0'>Select Month</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-if="vm.month_code">
+                <label class="control-label col-md-1">Month</label>
+                <div class="col-md-3 pl-zero">
+                    <input type="button" class="btn btn-info" ng-click="vm.postToAccount()" value="POST TO GL" />
+                </div>
+            </div>
+
+            <table class="table table-scrollable">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Particular</th>
+                        <th>Closing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="stock in vm.stocks">
+
+                        <td>{{stock.AC_CODE}}{{stock.MAIN_CODE}}{{stock.SUB_CODE}}</td>
+                        <td>{{stock.SUB_NAME}}</td>
+                        <td><input type="text" min="1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="{{stock.STOCK_CLOSING_ID}}" pattern="\d*" name="{{stock.STOCK_CLOSING_ID}}" ng-model="vm.stocks[$index].CLOSING" ng-keypress="$event.keyCode == 13 && vm.save(stock)" required /></td>
+                    </tr>
+                  
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+
+</form>
+

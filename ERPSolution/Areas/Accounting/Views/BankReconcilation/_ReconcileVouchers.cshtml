@@ -1,0 +1,186 @@
+﻿
+<style>
+    .dropdown-header {
+        background: #566170;
+        color: #ffffff;
+        font-size: 1.2em;
+        padding: 0;
+    }
+
+        .dropdown-header > span {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            text-align: left;
+            display: inline-block;
+            padding: 2px 10px;
+        }
+
+            .dropdown-header > span:first-child {
+                width: 22%;
+                border-right: 1px solid #fff;
+            }
+
+            .dropdown-header > span:last-child {
+                width: 80%;
+            }
+
+    .selected-value {
+        float: left;
+        width: 20px;
+        margin: 0 4px;
+    }
+
+    #customers-list .k-item > span {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline-block;
+        border-style: solid;
+        border-width: 0 0 1px 1px;
+        vertical-align: top;
+        min-height: 95px;
+        width: 79%;
+        padding: .6em 0 0 .6em;
+    }
+
+        #customers-list .k-item > span:first-child {
+            width: 77px;
+            border-left-width: 0;
+            padding: .6em 0 0 0;
+        }
+
+    #customers-list img {
+        -moz-box-shadow: 0 0 2px rgba(0,0,0,.4);
+        -webkit-box-shadow: 0 0 2px rgba(0,0,0,.4);
+        box-shadow: 0 0 2px rgba(0,0,0,.4);
+        width: 70px;
+        height: 70px;
+    }
+
+    /*#customers-list h3 {
+        font-size: 1.6em;
+        margin: 0;
+        padding: 0;
+    }*/
+
+    #customers-list p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .k-list {
+        border: 1px solid #ddd;
+    }
+
+    .k-item {
+        border-bottom: 1px solid #ddd;
+    }
+
+        .k-item .k-state-default:first-child {
+            padding-left: 5px;
+            float: left;
+            width: 20.8%;
+            border-right: 1px solid #aaa;
+        }
+
+        .k-item .k-state-default:last-child {
+        }
+
+            .k-item .k-state-default:last-child p {
+                margin-bottom: 0;
+            }
+
+    span.k-datepicker {
+        width: 100%;
+    }
+
+    .table thead {
+        background: #bbb;
+    }
+
+    .table > tbody > tr > td {
+        border: 1px solid #ccc;
+    }
+</style>
+
+
+<div class="portlet box blue-dark">
+    <div class="portlet-title">
+        <div class="caption">
+           Bank Reconcilations
+        </div>
+    </div>
+    <div class="portlet-body">
+                    <table class="table">
+                        <tr>
+                            <td>  From</td>
+                            <td>  <input kendo-date-picker ng-model="vm.fromdate" class="form-control" k-format="'dd-MMM-yyyy'" required /></td>
+                            <td>To </td>
+                            <td>  <input kendo-date-picker ng-model="vm.todate" class="form-control" k-format="'dd-MMM-yyyy'" required /></td>
+
+                            <td>Bank</td>
+                            <td> <select name="accountHead" id="accountHead" class="form-control" ng-model="vm.accountHead" ng-options="option.Value as option.Text for option in vm.bankAccountHeads" required></select></td>
+                            <td> <select name="status" id="status"  class="form-control" ng-model="vm.status" ng-options="option.Value as option.Text for option in [{Text:'Cleared',Value:1},{Text:'Pending',Value:2}]" required></select></td>
+                            <td> <input type="button" class="btn btn-info" value="Show" ng-click="vm.showReconcileVouchers()" /></td>
+                            <td> <input type="button" class="btn btn-danger" value="EXPORT" ng-click="vm.showReconcileVoucherReport(3)" /></td>
+                        </tr>
+
+                    </table>
+        <br />
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th><input type="text" ng-model="searchKey" placeholder="Voucher No" /> </th>
+                                <th><input type="text" ng-model="searchKey" placeholder="Cheque No" /> </th>
+                                <th>Voucher Type</th>
+                                <th>Voucher Date</th>
+                                <th>Dr</th>
+                                <th>Cr</th>
+                                <th>Bank Date</th>
+                                <th>
+                                    <input type="button" ng-click="vm.bulkUpdateBankDate()" value="Bulk Update"/>
+                                </th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="voucher in vm.vouchers|filter : searchKey">
+                                
+                                <td>{{voucher.VOUCHER_NO}}</td>
+                                <td>{{voucher.CHQ_NO}}</td>
+                                <td>{{voucher.VOUCHER_TYPE_NAME}}</td>
+                                <td>{{voucher.POST_DATE|date:'dd-MMM-yyyy'}}</td>
+                                <td>{{voucher.DR_AMT| number:0}}</td>
+                                <td>{{voucher.CR_AMT| number:0}}</td>
+                                <td><input kendo-date-picker  k-min="voucher.POST_DATE" ng-model="voucher.BANK_DATE" k-format="'dd-MMM-yyyy'" k-parse-formats="['yyyy-MM-ddTHH:mm:sszzz']" required /></td>
+                                <td>
+                                    <input type="button" class="btn btn-sm btn-info"  ng-click="vm.updateBankDate(voucher)" value="Update" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="text-align:right;">
+                                    BOOK BALANCE :
+                                </td>
+                                <td>{{vm.BOOK_BALANCE| number:4}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="text-align:right;">
+                                    BANK BALANCE :
+                                </td>
+                                <td>{{vm.BANK_BALANCE| number:4}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="text-align:right;">
+                                     AMOUNT NOT RELECT IN BANK :
+                                </td>
+                                <td>{{vm.BLANCE_DIFF| number:4}}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+

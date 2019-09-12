@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="portlet box blue-dark">
+    <div class="portlet-title">
+        <div class="caption">
+            Voucher Statement
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form class="form-horizontal form-body" name="vm.form">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table">
+                        <tr>
+                            <td>
+                                From Date
+                            </td>
+                            <td>
+                                <input kendo-date-picker ng-model="vm.fromdate" k-format="'dd-MMM-yyyy'" required />
+                            </td>
+
+                            <td>
+                                To Date
+                            </td>
+                            <td>
+                                <input kendo-date-picker ng-model="vm.todate" k-format="'dd-MMM-yyyy'" required />
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Export
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <button ng-click="vm.showVoucherStatementReport(1)" ng-disabled="vm.form.$invalid" class="btn">Pdf</button>
+                                        <button ng-click="vm.showVoucherStatementReport(3)" ng-disabled="vm.form.$invalid" class="btn">Excel</button>
+                                    </div>
+                                </div>
+                               
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

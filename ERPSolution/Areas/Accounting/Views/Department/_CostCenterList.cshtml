@@ -1,0 +1,26 @@
+﻿<div>
+    <div>
+        <a  class="btn btn-default fa fa-plus"></a>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="page-header">
+                    <h2 class="warning page-header-item">Cost Center</h2>
+                    <button class="btn custom-btn custom-btn-primary pull-right" type="button" data-ng-click="vm.addBoard()"><span class="glyphicon glyphicon-user"></span>Add</button>
+                </div>
+                <div class="table-wrapper table-responsive">
+                    <fieldset class="custom-fieldset col-md-12">
+                        <legend class="custom-legend">Section Cost Center</legend>
+                        <div kendo-grid k-options="vm.costCenterGridOption" k-data-source="vm.costCenterGridDataSource"></div>
+                    </fieldset>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

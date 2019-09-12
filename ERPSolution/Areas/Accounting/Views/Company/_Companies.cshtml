@@ -1,0 +1,21 @@
+﻿<div class="content">
+    <div class="panel">
+        <div class="header-title">
+            <h2>Company</h2>
+            <div class="action-wrapper">
+                <input type="text" placeholder="Search Item.." />
+                <a ng-href='#company/0' class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> ADD</a>
+            </div>
+        </div>
+        <div class="table-wrapper table-responsive">
+            <div kendo-grid k-options="vm.companyGridOption" k-data-source="vm.companyGridDataSource"></div>
+        </div>
+    </div>
+</div>
+<div kendo-window="vm.modal" k-visible="false" k-modal="true">
+    Are you sure you want to delete: {{vm.COM_NAME}}
+    <button ng-click="vm.deleteCompany(vm.COMPANY_ID)">Yes</button>
+    <button ng-click="vm.closeModal()">No</button>
+</div>
+
+

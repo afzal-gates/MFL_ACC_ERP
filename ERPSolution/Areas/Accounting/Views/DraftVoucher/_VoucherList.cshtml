@@ -1,0 +1,115 @@
+﻿@{
+    Layout = null;
+}
+
+
+<div class="content">
+    <div class="row">
+        <div class="col-sm-5">
+            @Html.Partial("~/Areas/Accounting/Views/DraftVoucher/_Edit.cshtml")
+        </div>
+        <div class="col-sm-7">
+            <div class="panel">
+                <div class="panel-body" style="padding: 0;">
+                    <div class="search-box">
+                        <input type="text" ng-model="vm.searchRefNo" maxlength="64" placeholder="Ref No." ng-keypress="$event.keyCode == 13 && vm.search()" />
+
+                        <input type="text" ng-model="vm.searchVhcNo" maxlength="64" placeholder="Voucher No" ng-keypress="$event.keyCode == 13 && vm.search()" />
+                        <input kendo-date-picker ng-model="vm.searchDate" k-format="'dd-MMM-yyyy'" placeholder="Voucher Date" ng-keypress="$event.keyCode == 13 && vm.search()" />
+
+                        <input type="button" value="Find" class="btn btn-circle-top" ng-click="vm.search()" />
+                    </div>
+                    <div class="table-wrapper table-responsive" style="font-size: 10px;">
+                        <div kendo-grid k-options="vm.voucherGridOption" k-data-source="vm.voucherGridDataSource"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet box blue-dark account-wrapper" style="position: relative;border-radius: 0;">
+        <div class="portlet-body" style="border-radius: 0px;">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="form-group">
+                        <input kendo-auto-complete k-placeholder="'search account head...'" k-ng-model="selectedItem" ng-keypress="$event.keyCode == 13 && vm.moveTo('Narration')" id="acc_head" k-options="vm.options" k-ng-delay="vm.options" class="form-control" style="width: 100%; background: #e0ffff" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label">Narration</label>
+                        <input type="text" id="Narration" ng-keypress="$event.keyCode == 13 && vm.moveTo('COST_CENTER_ID')" placeholder="Narration" ng-model="vm.ACC_VOUCHER_DETAIL.DESCRIPTION" class="form-control" style="width: 100%;" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">Cost Cender</label>
+                        <input name="COST_CENTER_ID" id="COST_CENTER_ID" kendo-auto-complete k-options="vm.costCenterOptions" k-ng-model="selectedCostCenter" ng-model="vm.COST_CENTER_NAME" ng-keypress="$event.keyCode == 13 && vm.moveTo('CURRENCY_ID')" class="form-control" style="width: 100%;" />
+                        @*<select name="COST_CENTER_ID" id="COST_CENTER_ID" ng-keypress="$event.keyCode == 13 && vm.moveTo('CURRENCY_ID')" class="form-control" ng-model="vm.ACC_VOUCHER_DETAIL.COST_CENTER_ID" ng-options="option.Value as option.Text for option in vm.costCenters"></select>*@
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-group">
+                        <label class="control-label">Currency</label>
+                        <select name="CURRENCY_ID" id="CURRENCY_ID" ng-change="vm.moveToRate('EXCHANGE_RATE')" ng-keypress="$event.keyCode == 13 && vm.moveToRate('EXCHANGE_RATE')" class="form-control" ng-model="vm.ACC_VOUCHER_DETAIL.CURRENCY_ID" ng-options="option.CURRENCY_ID as option.FORMAL_NAME for option in vm.currencies"></select>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-group">
+                        <label class="control-label">RATE({{vm.symbol}})</label>
+                        <input type="text" class="form-control" ng-model="vm.ACC_VOUCHER_DETAIL.EXCHANGE_RATE" name="EXCHANGE_RATE" id="EXCHANGE_RATE" ng-keypress="$event.keyCode == 13 && vm.moveAndConvert('BDT_VALUE')" />
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-group">
+                        <label class="control-label">VALUE</label>
+                        <input type="text" class="form-control" ng-model="vm.BDT_VALUE" name="BDT_VALUE" id="BDT_VALUE" placeholder="BDT" ng-keypress="$event.keyCode == 13 && vm.moveTo('DR_AMT')" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">DR</label>
+                        <input type="text" class="form-control" ng-model="vm.ACC_VOUCHER_DETAIL.DR_AMT" name="DR_AMT" id="DR_AMT" ng-keypress="$event.keyCode == 13 && vm.saveDrTemVoucherDetail()" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">CR</label>
+                        <input type="text" class="form-control" id="CR_AMT" ng-model="vm.ACC_VOUCHER_DETAIL.CR_AMT" name="CR_AMT" ng-keypress="$event.keyCode == 13 && vm.saveCrTemVoucherDetail()" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel">
+                        <div class="panel-body" style="padding:0;">
+                            <div class="table-wrapper table-responsive" style="font-size:10px;">
+                                <div kendo-grid k-options="vm.voucherTemDetailGridOption" k-data-source="vm.voucherTemDetailGridDataSource"></div>
+                            </div>
+                        </div>
+                        <div class="panel-body" style="padding:0; margin-top:10px;">
+                            <div class="table-wrapper table-responsive" style="font-size:10px;">
+                                <div class="control-label col-sm-1 pr-zero">
+                                    <label class="control-label">Note</label>
+                                </div>
+                                <div class="control-label col-sm-7 pr-zero">
+                                    <textarea class="form-control" name="DESCRIPTION" ng-model="vm.voucher.DESCRIPTION" rows="1"></textarea>
+                                </div>
+                                
+                                <div class="control-label col-sm-4 pr-zero" >
+                                    <input type="button" class="btn btn-warning" ng-click="vm.createNew()" value="New" />
+
+                                    <input type="button" class="btn btn-primary" ng-hide="vm.voucher.IS_POSTED=='P'"ng-click="vm.save('P')" id="btnSave" ng-disabled="!vm.IsEqualAmt&&vm.voucherForm.$invalid" value="POST" />
+                                    <input type="button" class="btn btn-primary" ng-hide="vm.voucher.IS_POSTED=='P'" ng-click="vm.save('W')" id="btnSave" ng-disabled="!vm.IsEqualAmt&&vm.voucherForm.$invalid" value="Draft {{vm.btnText}}" />
+                                    <input type="button" class="btn btn-primary" ng-hide="vm.voucher.IS_POSTED=='P'" ng-click="vm.save('C')" id="btnSave" ng-disabled="!vm.IsEqualAmt&&vm.voucherForm.$invalid" value="Cancle" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
