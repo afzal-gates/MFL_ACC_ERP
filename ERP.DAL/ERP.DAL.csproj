@@ -4,11 +4,15 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- Oracle.ManagedDataAccess.Core is the .NET Core/.NET compatible version -->
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.6.1" />
+
+    <!-- ConfigurationManager for accessing connection strings -->
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Oracle.DataAccess.Client;
+using Oracle.ManagedDataAccess.Client;
 using System.Configuration;
 using System.Data;
 
@@ -16,18 +16,18 @@ namespace ERP.DAL
         public DataSet ExecuteStoredProcedure(List<CommandParameter> commandParameters, String spName)
         {
             string constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            var cn = new Oracle.DataAccess.Client.OracleConnection(constr);
+            var cn = new OracleConnection(constr);
 
             try
             {
-                var cm = new Oracle.DataAccess.Client.OracleCommand(spName, cn)
+                var cm = new OracleCommand(spName, cn)
                 {
                     BindByName = true,
                     CommandType = CommandType.StoredProcedure
                 };
 
                 cn.Open();
-                Oracle.DataAccess.Client.OracleCommandBuilder.DeriveParameters(cm);
+                OracleCommandBuilder.DeriveParameters(cm);
                 cn.Close();
 
                 foreach (CommandParameter commandParameter in commandParameters)
@@ -43,14 +43,14 @@ namespace ERP.DAL
                 }
 
                 var ds = new DataSet();
-                var adap = new Oracle.DataAccess.Client.OracleDataAdapter(cm);
+                var adap = new OracleDataAdapter(cm);
                 adap.Fill(ds);
 
                 var dt = new DataTable("OUTPARAM");
                 dt.Columns.Add("KEY");
                 dt.Columns.Add("VALUE");
 
-                foreach (Oracle.DataAccess.Client.OracleParameter op in cm.Parameters)
+                foreach (OracleParameter op in cm.Parameters)
                 {
                     if (op.OracleDbType != OracleDbType.RefCursor && (op.Direction == ParameterDirection.InputOutput || op.Direction == ParameterDirection.Output))
                     {
@@ -79,18 +79,18 @@ namespace ERP.DAL
         public DataSet ExecuteSQLStatement(String SQL)
         {
             string constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            var cn = new Oracle.DataAccess.Client.OracleConnection(constr);
+            var cn = new OracleConnection(constr);
 
             try
             {
-                var cm = new Oracle.DataAccess.Client.OracleCommand(SQL, cn);
+                var cm = new OracleCommand(SQL, cn);
 
                 cn.Open();
                 cm.ExecuteReader();
                 cn.Close();
 
                 var ds = new DataSet();
-                var adap = new Oracle.DataAccess.Client.OracleDataAdapter(cm);
+                var adap = new OracleDataAdapter(cm);
                 adap.Fill(ds);
                 cm.Dispose();
                 adap.Dispose();

@@ -4,6 +4,9 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <!-- Disable auto-generation to avoid duplicates -->
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,9 +25,9 @@
 
     <!-- Dependency Injection - Use built-in DI or keep Ninject -->
     <!-- Option 1: Built-in DI (recommended) - no package needed -->
-    <!-- Option 2: Keep Ninject -->
-    <PackageReference Include="Ninject" Version="4.0.0" />
-    <PackageReference Include="Ninject.Web.Common" Version="4.0.0" />
+    <!-- Option 2: Keep Ninject (using latest stable version) -->
+    <PackageReference Include="Ninject" Version="3.3.6" />
+    <PackageReference Include="Ninject.Web.Common" Version="3.3.2" />
 
     <!-- PDF Generation (WkHtmlToPdf replacement for .NET Core) -->
     <PackageReference Include="DinkToPdf" Version="1.0.8" />
