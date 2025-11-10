@@ -1,22 +1,18 @@
 ﻿using ERP.Model;
 using ERPSolution.Hubs;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace ERPSolution.Controllers
 {
-    public class LeaveApiController : ApiController
+    public class LeaveApiController : ControllerBase
     {
         private static IHubContext Hub = GlobalHost.ConnectionManager.GetHubContext<DashBoardHub>();
 
-        [ResponseType(typeof(LeaveModelApi))]
-        public IHttpActionResult Get(string LOGIN_ID)
+        public IActionResult Get(string LOGIN_ID)
         {
             try
             {
@@ -26,13 +22,12 @@ namespace ERPSolution.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return StatusCode(500, ex.Message);
             }
         }
 
 
-        [ResponseType(typeof(LeaveModelApi))]
-        public IHttpActionResult Get(string LOGIN_ID_ReqNoti, Int64? Option)
+        public IActionResult Get(string LOGIN_ID_ReqNoti, Int64? Option)
         {
             try
             {
@@ -41,14 +36,14 @@ namespace ERPSolution.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return StatusCode(500, ex.Message);
             }
         }
 
 
 
         //[ResponseType(typeof(HR_LEAVE_BALModel))]
-        public IHttpActionResult Get(Int64 HR_COMPANY_ID, Int64 RF_FISCAL_YEAR_ID, Int64 HR_EMPLOYEE_ID)
+        public IActionResult Get(Int64 HR_COMPANY_ID, Int64 RF_FISCAL_YEAR_ID, Int64 HR_EMPLOYEE_ID)
         {
             try
             {
@@ -57,12 +52,12 @@ namespace ERPSolution.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return StatusCode(500, ex.Message);
             }
         }
 
-        //[System.Web.Http.Authorize]
-        public IHttpActionResult Get(Int64 HR_COMPANY_ID, Int64 RF_FISCAL_YEAR_ID, Int64 HR_LEAVE_TYPE_ID, DateTime FROM_DATE, DateTime TO_DATE, Int64? HR_EMPLOYEE_ID)
+        //[Authorize]
+        public IActionResult Get(Int64 HR_COMPANY_ID, Int64 RF_FISCAL_YEAR_ID, Int64 HR_LEAVE_TYPE_ID, DateTime FROM_DATE, DateTime TO_DATE, Int64? HR_EMPLOYEE_ID)
         {
             try
             {
@@ -72,13 +67,13 @@ namespace ERPSolution.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return StatusCode(500, ex.Message);
             }
         }
 
 
-        //[System.Web.Http.Authorize]
-        public IHttpActionResult Get(Int64 HR_COMPANY_ID, Int64 RF_FISCAL_YEAR_ID, DateTime TO_DATE, Int64? HR_EMPLOYEE_ID)
+        //[Authorize]
+        public IActionResult Get(Int64 HR_COMPANY_ID, Int64 RF_FISCAL_YEAR_ID, DateTime TO_DATE, Int64? HR_EMPLOYEE_ID)
         {
             try
             {
@@ -88,13 +83,13 @@ namespace ERPSolution.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return StatusCode(500, ex.Message);
             }
         }
 
 
-        //[System.Web.Http.Authorize]
-        public IHttpActionResult Get(Int64 HR_LEAVE_TRANS_ID, Int64? SC_USER_ID)
+        //[Authorize]
+        public IActionResult Get(Int64 HR_LEAVE_TRANS_ID, Int64? SC_USER_ID)
         {
             try
             {
@@ -103,13 +98,12 @@ namespace ERPSolution.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return StatusCode(500, ex.Message);
             }
         }
 
-        //[System.Web.Http.Authorize]
-        [ResponseType(typeof(HR_LEAVE_TRANSModel))]
-        public IHttpActionResult Post([FromBody]HR_LEAVE_TRANSModel ob, Int64 pOption)
+        //[Authorize]
+        public IActionResult Post([FromBody]HR_LEAVE_TRANSModel ob, Int64 pOption)
         {
             try
             {
@@ -135,11 +129,11 @@ namespace ERPSolution.Controllers
                 Hub.Clients.All.showNotification();
                 Hub.Clients.All.getMessageData();
 
-                return Created<HR_LEAVE_TRANSModel>("sdddd", obj);
+                return CreatedAtAction(nameof(Get), new { HR_LEAVE_TRANS_ID = obj.HR_LEAVE_TRANS_ID, SC_USER_ID = (Int64?)null }, obj);
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return StatusCode(500, ex.Message);
             }
         }
     }

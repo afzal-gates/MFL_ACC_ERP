@@ -1,21 +1,16 @@
 ﻿using ERP.Model;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace ERPSolution.Controllers
 {
-    public class UserApiController : ApiController
+    public class UserApiController : ControllerBase
     {
         // GET: api/UserApi
-        [ResponseType(typeof(UserModelApi))]
-
         //[Authorize]
-        public IHttpActionResult Get(string LOGIN_ID)
+        public IActionResult Get(string LOGIN_ID)
         {
             try
             {
@@ -25,12 +20,11 @@ namespace ERPSolution.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return StatusCode(500, ex.Message);
             }
         }
 
-        [ResponseType(typeof(UserModelApi))]
-        public IHttpActionResult get(string LOGIN_ID, string PUSH_REGI_ID)
+        public IActionResult get(string LOGIN_ID, string PUSH_REGI_ID)
         {
             try
             {
@@ -45,11 +39,11 @@ namespace ERPSolution.Controllers
                     return Conflict();
                 }
 
-                return Created<UserModelApi>("sdddd", obj);
+                return CreatedAtAction(nameof(Get), new { LOGIN_ID = obj.LOGIN_ID }, obj);
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return StatusCode(500, ex.Message);
             }
         }
 
