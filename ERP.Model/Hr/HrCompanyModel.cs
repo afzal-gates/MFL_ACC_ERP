@@ -102,7 +102,7 @@ namespace ERP.Model
                 OraDatabase db = new OraDatabase();
                 var ds = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {   new CommandParameter() {ParameterName = "pOption", Value = 3003},
-                    new CommandParameter() {ParameterName = "pSC_USER_ID", Value = HttpContext.Current.Session["multiScUserId"]},
+                    new CommandParameter() {ParameterName = "pSC_USER_ID", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
                     new CommandParameter() {ParameterName = "pMsg", Value = 500, Direction = ParameterDirection.Output}
                 }, sp);
 
@@ -163,7 +163,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pLK_COMP_TYPE_ID", Value = (ob.LK_COMP_TYPE_ID != 0 || ob.LK_COMP_TYPE_ID == null) ? ob.LK_COMP_TYPE_ID : null},
                     new CommandParameter() {ParameterName = "pLK_BUS_TYPE_ID", Value =(ob.LK_BUS_TYPE_ID != 0 || ob.LK_BUS_TYPE_ID == null) ? ob.LK_BUS_TYPE_ID : null},
                     new CommandParameter() {ParameterName = "pIS_ACTIVE", Value = ob.IS_ACTIVE == null ? "N" : "Y"},
-                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = Convert.ToInt64(HttpContext.Current.Session["multiScUserId"])},
+                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
                     new CommandParameter() {ParameterName = "pOption", Value = 1000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}
                 }, sp);
@@ -204,7 +204,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pLK_COMP_TYPE_ID", Value = (ob.LK_COMP_TYPE_ID != 0 || ob.LK_COMP_TYPE_ID == null) ? ob.LK_COMP_TYPE_ID : null},
                     new CommandParameter() {ParameterName = "pLK_BUS_TYPE_ID", Value =(ob.LK_BUS_TYPE_ID != 0 || ob.LK_BUS_TYPE_ID == null) ? ob.LK_BUS_TYPE_ID : null},
                     new CommandParameter() {ParameterName = "pIS_ACTIVE", Value = ob.IS_ACTIVE == null ? "N" : "Y"},
-                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = Convert.ToInt64(HttpContext.Current.Session["multiScUserId"])},
+                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
                     new CommandParameter() {ParameterName = "pOption", Value = 2000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}
                 }, sp);

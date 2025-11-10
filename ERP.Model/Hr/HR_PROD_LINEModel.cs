@@ -87,8 +87,8 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pLK_GARM_TYPE_ID", Value = ob.LK_GARM_TYPE_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pIS_ACTIVE", Value = ob.IS_ACTIVE},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = HttpContext.Current.Session["multiScUserId"]},
-                     new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = HttpContext.Current.Session["multiScUserId"]},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
                      new CommandParameter() {ParameterName = "pOption", Value =1000},
                      new CommandParameter() {ParameterName = "opHR_PROD_LINE_ID", Value =0, Direction = ParameterDirection.Output},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}

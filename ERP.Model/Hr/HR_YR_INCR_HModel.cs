@@ -96,7 +96,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = (pLK_FLOOR_ID<1?null:pLK_FLOOR_ID)},
                      new CommandParameter() {ParameterName = "pPROPOSE_BY", Value = pPROPOSE_BY},
                      new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = HttpContext.Current.Session["multiScUserId"]},                     
+                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},                     
 
                      new CommandParameter() {ParameterName = "pOption", Value = 3006},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
@@ -181,7 +181,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pIS_P_F", Value = ob.IS_P_F},
                      new CommandParameter() {ParameterName = "pREASON_DESC", Value = ob.REASON_DESC},
                      new CommandParameter() {ParameterName = "pINCR_DTL_XML", Value = ob.INCR_DTL_XML},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = HttpContext.Current.Session["multiScUserId"]},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
                      new CommandParameter() {ParameterName = "pUSER_LEVEL", Value = ob.USER_LEVEL},
                      
@@ -229,7 +229,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = HttpContext.Current.Session["multiScUserId"]},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
                      
                      new CommandParameter() {ParameterName = "pOption", Value = 1001},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
@@ -273,7 +273,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = HttpContext.Current.Session["multiScUserId"]},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
                      
                      new CommandParameter() {ParameterName = "pOption", Value = 1002},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
@@ -317,7 +317,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = HttpContext.Current.Session["multiScUserId"]},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
                      
                      new CommandParameter() {ParameterName = "pOption", Value = 1003},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
@@ -411,7 +411,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pIS_P_F", Value = ob.IS_P_F},
                      new CommandParameter() {ParameterName = "pREASON_DESC", Value = ob.REASON_DESC},
                      new CommandParameter() {ParameterName = "pINCR_DTL_XML", Value = ob.INCR_DTL_XML},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = HttpContext.Current.Session["multiScUserId"]},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
                      new CommandParameter() {ParameterName = "pUSER_LEVEL", Value = ob.USER_LEVEL},
                      
@@ -458,7 +458,7 @@ namespace ERP.Model
                      
                      new CommandParameter() {ParameterName = "pPROPOSE_BY", Value = pPROPOSE_BY},
                      new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = HttpContext.Current.Session["multiScUserId"]},                     
+                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},                     
 
                      new CommandParameter() {ParameterName = "pOption", Value = 3011},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
@@ -527,7 +527,7 @@ namespace ERP.Model
                 {
                      new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = ob.HR_YR_INCR_H_ID},                        
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = HttpContext.Current.Session["multiScUserId"]},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
                      
                      new CommandParameter() {ParameterName = "pOption", Value = 1005},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
@@ -571,7 +571,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = HttpContext.Current.Session["multiScUserId"]},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
                      
                      new CommandParameter() {ParameterName = "pOption", Value = 1006},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},

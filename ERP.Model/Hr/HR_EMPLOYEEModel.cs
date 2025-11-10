@@ -325,7 +325,14 @@ namespace ERP.Model
             {
                 if (ob.ATT_FILE != null)
                 {
-                    ob.ATT_FILE.SaveAs(AppDomain.CurrentDomain.BaseDirectory + @"\UPLOAD_DOCS\EMP_PHOTOS\" + ob.EMPLOYEE_CODE + ".jpg");
+                    // TODO MIGRATION: Move file handling to controller
+                    // In ASP.NET Core, use: await ATT_FILE.CopyToAsync(stream)
+                    var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "UPLOAD_DOCS", "EMP_PHOTOS", ob.EMPLOYEE_CODE + ".jpg");
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        ob.ATT_FILE.CopyTo(stream);
+                    }
                 }
 
                 var ds = db.ExecuteStoredProcedure(new List<CommandParameter>()
@@ -421,7 +428,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pIS_OT_HRLY", Value = ob.IS_OT_HRLY},
                     new CommandParameter() {ParameterName = "pIS_TRANSPORT", Value = ob.IS_TRANSPORT},
                     new CommandParameter() {ParameterName = "pIS_HOUSING", Value = ob.IS_HOUSING},
-                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = HttpContext.Current.Session["multiScUserId"]},
+                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
                     new CommandParameter() {ParameterName = "pVERSION_NO", Value = 1},
                     new CommandParameter() {ParameterName = "pOption", Value = 1000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output},
@@ -474,7 +481,14 @@ namespace ERP.Model
             {
                     if (ob.ATT_FILE != null)
                     {
-                        ob.ATT_FILE.SaveAs(AppDomain.CurrentDomain.BaseDirectory + @"\UPLOAD_DOCS\EMP_PHOTOS\" + ob.EMPLOYEE_CODE + ".jpg");
+                        // TODO MIGRATION: Move file handling to controller
+                        // In ASP.NET Core, use: await ATT_FILE.CopyToAsync(stream)
+                        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "UPLOAD_DOCS", "EMP_PHOTOS", ob.EMPLOYEE_CODE + ".jpg");
+                        Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            ob.ATT_FILE.CopyTo(stream);
+                        }
                     }
 
 
@@ -571,8 +585,8 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pIS_OT_HRLY", Value = ob.IS_OT_HRLY},
                     new CommandParameter() {ParameterName = "pIS_TRANSPORT", Value = ob.IS_TRANSPORT},
                     new CommandParameter() {ParameterName = "pIS_HOUSING", Value = ob.IS_HOUSING},
-                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = Convert.ToInt64(HttpContext.Current.Session["multiScUserId"])},
-                    new CommandParameter() {ParameterName = "pLAST_UPDATE_LOGIN", Value = Convert.ToInt64(HttpContext.Current.Session["multiScUserId"])},
+                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pLAST_UPDATE_LOGIN", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
                     new CommandParameter() {ParameterName = "pVERSION_NO", Value = 1},
                     new CommandParameter() {ParameterName = "pOption", Value = 2000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}
@@ -1117,7 +1131,7 @@ namespace ERP.Model
                 {
                      new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = ob.HR_EMPLOYEE_ID},
                      new CommandParameter() {ParameterName = "pGROSS_SALARY", Value = ob.GROSS_SALARY},                     
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = HttpContext.Current.Session["multiScUserId"]}, 
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */}, 
                      new CommandParameter() {ParameterName = "pOption", Value =1000},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
                  }, sp);
