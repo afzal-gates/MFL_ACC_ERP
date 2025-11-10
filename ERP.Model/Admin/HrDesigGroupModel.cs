@@ -234,7 +234,7 @@ namespace ERP.Model
             }
         }
        
-        public string Save()
+        public string Save(long userId)
         {
             const string sp = "pkg_admin.hr_desig_grp_insert";
             string vMsg = "";
@@ -254,7 +254,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pDSG_GRP_ORDER", Value = ob.DSG_GRP_ORDER},
                     new CommandParameter() {ParameterName = "pIS_LEAF", Value = ob.IS_LEAF == null ? "N" : "Y"},
                     new CommandParameter() {ParameterName = "pIS_ACTIVE", Value = ob.IS_ACTIVE == null ? "N" : "Y"},
-                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pOption", Value = 1000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}
                 }, sp);
@@ -271,7 +271,7 @@ namespace ERP.Model
             return vMsg;
         }
        
-        public string Update()
+        public string Update(long userId)
         {
             const string sp = "pkg_admin.hr_desig_grp_update";
             string vMsg = "";
@@ -291,7 +291,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pDSG_GRP_ORDER", Value = ob.DSG_GRP_ORDER},
                     new CommandParameter() {ParameterName = "pIS_LEAF", Value = ob.IS_LEAF == null ? "N" : "Y"},
                     new CommandParameter() {ParameterName = "pIS_ACTIVE", Value = ob.IS_ACTIVE == null ? "N" : "Y"},
-                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pOption", Value = 2000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}
                 }, sp);

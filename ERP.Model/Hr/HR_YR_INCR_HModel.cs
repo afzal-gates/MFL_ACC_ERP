@@ -78,7 +78,7 @@ namespace ERP.Model
             }
         }
 
-        public HR_YR_INCR_HModel GetIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null, Int64? pHR_DEPARTMENT_ID = null, Int64? pLK_FLOOR_ID = null, Int64? pPROPOSE_BY = null)
+        public HR_YR_INCR_HModel GetIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null, Int64? pHR_DEPARTMENT_ID = null, Int64? pLK_FLOOR_ID = null, Int64? pPROPOSE_BY = null, long userId = 0)
         {
             string sp = "pkg_incriment.hr_yr_incr_h_select";
             try
@@ -91,12 +91,12 @@ namespace ERP.Model
                 var ds1 = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {
                      new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = pHR_YR_INCR_H_ID},
-                     new CommandParameter() {ParameterName = "pHR_INCR_MEMO_ID", Value = pHR_INCR_MEMO_ID},                     
+                     new CommandParameter() {ParameterName = "pHR_INCR_MEMO_ID", Value = pHR_INCR_MEMO_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = pHR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = (pLK_FLOOR_ID<1?null:pLK_FLOOR_ID)},
                      new CommandParameter() {ParameterName = "pPROPOSE_BY", Value = pPROPOSE_BY},
                      new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},                     
+                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},                     
 
                      new CommandParameter() {ParameterName = "pOption", Value = 3006},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
@@ -159,7 +159,7 @@ namespace ERP.Model
             }
         }
 
-        public string IncrBatchSave()
+        public string IncrBatchSave(long userId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -181,7 +181,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pIS_P_F", Value = ob.IS_P_F},
                      new CommandParameter() {ParameterName = "pREASON_DESC", Value = ob.REASON_DESC},
                      new CommandParameter() {ParameterName = "pINCR_DTL_XML", Value = ob.INCR_DTL_XML},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
                      new CommandParameter() {ParameterName = "pUSER_LEVEL", Value = ob.USER_LEVEL},
                      
@@ -212,7 +212,7 @@ namespace ERP.Model
             }
         }
 
-        public string IncrProposeSave()
+        public string IncrProposeSave(long userId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -223,13 +223,13 @@ namespace ERP.Model
                 OraDatabase db = new OraDatabase();
                 var ds = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {
-                     new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = ob.HR_YR_INCR_H_ID},   
-                     //new CommandParameter() {ParameterName = "pHR_COMPANY_ID", Value = ob.HR_COMPANY_ID},   
-                     //new CommandParameter() {ParameterName = "pHR_OFFICE_ID", Value = ob.HR_OFFICE_ID},   
+                     new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = ob.HR_YR_INCR_H_ID},
+                     //new CommandParameter() {ParameterName = "pHR_COMPANY_ID", Value = ob.HR_COMPANY_ID},
+                     //new CommandParameter() {ParameterName = "pHR_OFFICE_ID", Value = ob.HR_OFFICE_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                      
                      new CommandParameter() {ParameterName = "pOption", Value = 1001},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
@@ -258,7 +258,7 @@ namespace ERP.Model
             }
         }
 
-        public string IncrVeryficationSave()
+        public string IncrVeryficationSave(long userId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -269,11 +269,11 @@ namespace ERP.Model
                 OraDatabase db = new OraDatabase();
                 var ds = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {
-                     new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = ob.HR_YR_INCR_H_ID},    
+                     new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = ob.HR_YR_INCR_H_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                      
                      new CommandParameter() {ParameterName = "pOption", Value = 1002},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
@@ -302,7 +302,7 @@ namespace ERP.Model
             }
         }
 
-        public string IncrFinalizeSave()
+        public string IncrFinalizeSave(long userId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -317,7 +317,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                      
                      new CommandParameter() {ParameterName = "pOption", Value = 1003},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
@@ -389,7 +389,7 @@ namespace ERP.Model
             }
         }
 
-        public string SpecialIncrBatchSave()
+        public string SpecialIncrBatchSave(long userId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -411,7 +411,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pIS_P_F", Value = ob.IS_P_F},
                      new CommandParameter() {ParameterName = "pREASON_DESC", Value = ob.REASON_DESC},
                      new CommandParameter() {ParameterName = "pINCR_DTL_XML", Value = ob.INCR_DTL_XML},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
                      new CommandParameter() {ParameterName = "pUSER_LEVEL", Value = ob.USER_LEVEL},
                      
@@ -442,23 +442,23 @@ namespace ERP.Model
             }
         }
 
-        public HR_YR_INCR_HModel GetSpecialIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null, Int64? pPROPOSE_BY = null)
+        public HR_YR_INCR_HModel GetSpecialIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null, Int64? pPROPOSE_BY = null, long userId = 0)
         {
             string sp = "pkg_incriment.hr_yr_incr_h_select";
             try
             {
                 string vUserLevel = "";
                 Int32 vUserApproverLvlNo = 0;
-                
+
                 OraDatabase db = new OraDatabase();
                 var ds1 = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {
                      new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = pHR_YR_INCR_H_ID},
-                     new CommandParameter() {ParameterName = "pHR_INCR_MEMO_ID", Value = pHR_INCR_MEMO_ID},                     
-                     
+                     new CommandParameter() {ParameterName = "pHR_INCR_MEMO_ID", Value = pHR_INCR_MEMO_ID},
+
                      new CommandParameter() {ParameterName = "pPROPOSE_BY", Value = pPROPOSE_BY},
                      new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},                     
+                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},                     
 
                      new CommandParameter() {ParameterName = "pOption", Value = 3011},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
@@ -514,7 +514,7 @@ namespace ERP.Model
             }
         }
 
-        public string SpecialIncrProposeSave()
+        public string SpecialIncrProposeSave(long userId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -525,9 +525,9 @@ namespace ERP.Model
                 OraDatabase db = new OraDatabase();
                 var ds = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {
-                     new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = ob.HR_YR_INCR_H_ID},                        
+                     new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = ob.HR_YR_INCR_H_ID},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                      
                      new CommandParameter() {ParameterName = "pOption", Value = 1005},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
@@ -556,7 +556,7 @@ namespace ERP.Model
             }
         }
 
-        public string SpecialIncrFinalizeSave()
+        public string SpecialIncrFinalizeSave(long userId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -571,7 +571,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                      
                      new CommandParameter() {ParameterName = "pOption", Value = 1006},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},

@@ -81,7 +81,7 @@ namespace ERP.Model
                 OraDatabase db = new OraDatabase();
                 var ds = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {   
-                    new CommandParameter() {ParameterName = "pSC_USER_ID", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},
                     new CommandParameter() {ParameterName = "pOption", Value = vOption }
                 }, sp);
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -435,7 +435,7 @@ namespace ERP.Model
                 throw ex;
             }
         }
-        public string Save()
+        public string Save(long userId)
         {
             const string sp = "pkg_admin.hr_department_insert";
             string vMsg = "";
@@ -457,7 +457,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pIS_CORE_DEPT", Value = ob.IS_CORE_DEPT == null ? "N" : "Y"},
                     new CommandParameter() {ParameterName = "pIS_ORGANO_LEVEL", Value = ob.IS_ORGANO_LEVEL == null ? "N" : "Y"},
                     new CommandParameter() {ParameterName = "pIS_LEAF", Value = ob.IS_LEAF == null ? "N" : "Y"},
-                    new CommandParameter() {ParameterName = "pCREATED_BY", Value =Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pIS_ACTIVE", Value = ob.IS_ACTIVE == null ? "N" : "Y"},
                     new CommandParameter() {ParameterName = "pOption", Value = 1000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}
@@ -474,7 +474,7 @@ namespace ERP.Model
             }
             return vMsg;
         }
-        public string Update()
+        public string Update(long userId)
         {
             const string sp = "pkg_admin.hr_department_update";
             string vMsg = "";
@@ -497,7 +497,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pIS_CORE_DEPT", Value = ob.IS_CORE_DEPT == null ? "N" : "Y"},
                     new CommandParameter() {ParameterName = "pIS_ORGANO_LEVEL", Value = ob.IS_ORGANO_LEVEL == null ? "N" : "Y"},
                     new CommandParameter() {ParameterName = "pIS_LEAF", Value = ob.IS_LEAF == null ? "N" : "Y"},
-                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pIS_ACTIVE", Value = ob.IS_ACTIVE == null ? "N" : "Y"},
                     new CommandParameter() {ParameterName = "pOption", Value = 2000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}

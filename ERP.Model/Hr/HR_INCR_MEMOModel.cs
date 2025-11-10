@@ -34,7 +34,7 @@ namespace ERP.Model
 
 
 
-        public string Save()
+        public string Save(long userId)
         {
             const string sp = "pkg_incriment.hr_incr_memo_save";
             string jsonStr="{";
@@ -57,7 +57,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pIS_BY_ADMIN", Value = ob.IS_BY_ADMIN},
                      new CommandParameter() {ParameterName = "pIS_FINALIZED", Value = ob.IS_FINALIZED},
                      new CommandParameter() {ParameterName = "pREMARKS", Value = ob.REMARKS},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                      new CommandParameter() {ParameterName = "pOption", Value =1000},
                      new CommandParameter() {ParameterName = "pAUTH_NO_RTN", Direction = ParameterDirection.Output},
                      new CommandParameter() {ParameterName = "pHR_INCR_MEMO_ID_RTN", Direction = ParameterDirection.Output},
@@ -85,7 +85,7 @@ namespace ERP.Model
             }
         }
 
-        public string MemoFinalize()
+        public string MemoFinalize(long userId)
         {
             const string sp = "pkg_incriment.hr_incr_memo_finalize";
             string jsonStr = "{";
@@ -106,7 +106,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pIS_BY_ADMIN", Value = ob.IS_BY_ADMIN},
                      new CommandParameter() {ParameterName = "pIS_FINALIZED", Value = ob.IS_FINALIZED},
                      new CommandParameter() {ParameterName = "pREMARKS", Value = ob.REMARKS},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                      new CommandParameter() {ParameterName = "pOption", Value =1000},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
                  }, sp);

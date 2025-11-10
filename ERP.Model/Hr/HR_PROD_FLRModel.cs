@@ -51,7 +51,7 @@ namespace ERP.Model
         }
 
 
-        public string Save()
+        public string Save(long userId)
         {
             const string sp = "pkg_hr.hr_prod_flr_insert";
             string jsonStr = "{";
@@ -71,9 +71,9 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pIS_ACTIVE", Value = ob.IS_ACTIVE},
                      new CommandParameter() {ParameterName = "pCREATION_DATE", Value = ob.CREATION_DATE},
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                      new CommandParameter() {ParameterName = "pLAST_UPDATE_DATE", Value = ob.LAST_UPDATE_DATE},
-                     new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = userId},
                      new CommandParameter() {ParameterName = "pLK_PFLR_TYP_ID", Value = ob.LK_PFLR_TYP_ID},
                      new CommandParameter() {ParameterName = "pOption", Value =1000},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
@@ -132,18 +132,18 @@ namespace ERP.Model
         }
 
 
-        public List<HR_PROD_FLRModel> GetFloor4IncrProp()
+        public List<HR_PROD_FLRModel> GetFloor4IncrProp(long userId)
         {
             string sp = "pkg_incriment.hr_yr_incr_h_select";
             try
             {
                 int vOption = 3005;
-                
+
                 var obList = new List<HR_PROD_FLRModel>();
                 OraDatabase db = new OraDatabase();
                 var ds = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {
-                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = 1 }, //0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},
                      new CommandParameter() {ParameterName = "pOption", Value = vOption},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
                  }, sp);
@@ -169,7 +169,7 @@ namespace ERP.Model
             }
         }
 
-        public List<HR_PROD_FLRModel> GetProdFloorList(Int16? pHR_COMPANY_ID, Int16? pLK_PFLR_TYP_ID, Int64? pOption)
+        public List<HR_PROD_FLRModel> GetProdFloorList(Int16? pHR_COMPANY_ID, Int16? pLK_PFLR_TYP_ID, Int64? pOption, long userId)
         {
             string sp = "pkg_hr.hr_prod_flr_select";
             try
@@ -180,7 +180,7 @@ namespace ERP.Model
                 {
                      new CommandParameter() {ParameterName = "pHR_COMPANY_ID", Value = pHR_COMPANY_ID},
                      new CommandParameter() {ParameterName = "pLK_PFLR_TYP_ID", Value = pLK_PFLR_TYP_ID},
-                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},
                      new CommandParameter() {ParameterName = "pOption", Value = pOption},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
                  }, sp);

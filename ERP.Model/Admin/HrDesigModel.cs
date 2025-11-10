@@ -106,7 +106,7 @@ namespace ERP.Model
                 throw ex;
             }
         }
-        public string Save()
+        public string Save(long userId)
         {
             const string sp = "pkg_hr.hr_designation_insert";
             string vMsg = "";
@@ -129,7 +129,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pHR_GRADE_ID", Value =(ob.HR_GRADE_ID != 0 || ob.HR_GRADE_ID == null)? ob.HR_GRADE_ID : null},
                     new CommandParameter() {ParameterName = "pIS_GAJETED", Value = ob.IS_GAJETED},
                     new CommandParameter() {ParameterName = "pDESIG_ORDER", Value = ob.DESIG_ORDER},
-                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pIS_ACTIVE", Value = ob.IS_ACTIVE},
                     new CommandParameter() {ParameterName = "pOption", Value = 1000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}
@@ -147,7 +147,7 @@ namespace ERP.Model
             }
             return vMsg;
         }
-        public string Update()
+        public string Update(long userId)
         {
             const string sp = "pkg_hr.hr_designation_update";
             string vMsg = "";
@@ -169,7 +169,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pHR_GRADE_ID", Value =(ob.HR_GRADE_ID != 0 || ob.HR_GRADE_ID == null)? ob.HR_GRADE_ID : null},
                     new CommandParameter() {ParameterName = "pIS_GAJETED", Value = ob.IS_GAJETED},
                     new CommandParameter() {ParameterName = "pDESIG_ORDER", Value = ob.DESIG_ORDER},
-                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pIS_ACTIVE", Value = ob.IS_ACTIVE},
                     new CommandParameter() {ParameterName = "pOption", Value = 2000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}

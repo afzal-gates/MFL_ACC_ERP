@@ -310,7 +310,7 @@ namespace ERP.Model
         }
 
 
-        public string Save()
+        public string Save(long userId)
         {
             string jsonStr = "{";
             var i = 1;
@@ -428,7 +428,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pIS_OT_HRLY", Value = ob.IS_OT_HRLY},
                     new CommandParameter() {ParameterName = "pIS_TRANSPORT", Value = ob.IS_TRANSPORT},
                     new CommandParameter() {ParameterName = "pIS_HOUSING", Value = ob.IS_HOUSING},
-                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */},
+                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pVERSION_NO", Value = 1},
                     new CommandParameter() {ParameterName = "pOption", Value = 1000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output},
@@ -469,7 +469,7 @@ namespace ERP.Model
             return jsonStr;
         }
 
-        public string Update()
+        public string Update(long userId)
         {
             string sp = "pkg_hr.hr_employee_update";
             var ob = this;
@@ -585,8 +585,8 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pIS_OT_HRLY", Value = ob.IS_OT_HRLY},
                     new CommandParameter() {ParameterName = "pIS_TRANSPORT", Value = ob.IS_TRANSPORT},
                     new CommandParameter() {ParameterName = "pIS_HOUSING", Value = ob.IS_HOUSING},
-                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
-                    new CommandParameter() {ParameterName = "pLAST_UPDATE_LOGIN", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = userId},
+                    new CommandParameter() {ParameterName = "pLAST_UPDATE_LOGIN", Value = userId},
                     new CommandParameter() {ParameterName = "pVERSION_NO", Value = 1},
                     new CommandParameter() {ParameterName = "pOption", Value = 2000},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}
@@ -1117,7 +1117,7 @@ namespace ERP.Model
         public Int64 HR_EMPLOYEE_ID { get; set; }
         public decimal GROSS_SALARY { get; set; }
 
-        public string EmployeeGrossUpdate()
+        public string EmployeeGrossUpdate(long userId)
         {
             const string sp = "pkg_hr.hr_emp_gross_update";
             string jsonStr = "{";
@@ -1131,7 +1131,7 @@ namespace ERP.Model
                 {
                      new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = ob.HR_EMPLOYEE_ID},
                      new CommandParameter() {ParameterName = "pGROSS_SALARY", Value = ob.GROSS_SALARY},                     
-                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = 0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */}, 
+                     new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId}, 
                      new CommandParameter() {ParameterName = "pOption", Value =1000},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
                  }, sp);

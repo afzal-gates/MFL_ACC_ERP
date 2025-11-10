@@ -24,7 +24,7 @@ namespace ERP.Model
         [Required(ErrorMessage = "Please input old password")]
         public string PASSWORD_HASH_OLD { get; set; }
 
-        public string SaveChangePassword()
+        public string SaveChangePassword(long userId)
         {
             const string sp = "pkg_security.sc_user_update";
             string vMsg = "";
@@ -37,7 +37,7 @@ namespace ERP.Model
                 {
                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = ob.SC_USER_ID},
                     new CommandParameter() {ParameterName = "pPASSWORD_HASH", Value = ob.PASSWORD_HASH},
-                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pOption", Value = 2002},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}
                 }, sp);
@@ -305,7 +305,7 @@ namespace ERP.Model
         //    }
 
         //}
-        public string SaveUser()
+        public string SaveUser(long userId)
         {
             const string sp = "pkg_security.sc_user_insert";
             string vMsg = "";
@@ -329,7 +329,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pSC_USER_STATUS_ID", Value = ob.SC_USER_STATUS_ID},
                     new CommandParameter() {ParameterName = "pPASSWORD_HASH", Value = ob.PASSWORD_HASH},
                     new CommandParameter() {ParameterName = "pMEMORABLE_TEXT", Value = ob.MEMORABLE_TEXT},
-                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pIS_USER_NEVER_EXPIRE", Value = ob.IS_USER_NEVER_EXPIRE==null?"Y":ob.IS_USER_NEVER_EXPIRE},
                     new CommandParameter() {ParameterName = "pUSER_EXPIRE_ON", Value = ob.USER_EXPIRE_ON},
                     new CommandParameter() {ParameterName = "pIS_PWD_CNG_LOGON", Value = ob.IS_PWD_CNG_LOGON==null?"Y":ob.IS_PWD_CNG_LOGON},
@@ -350,7 +350,7 @@ namespace ERP.Model
             }
             return vMsg;
         }
-        public string Update()
+        public string Update(long userId)
         {
             const string sp = "pkg_security.sc_user_update"; ;
             var ob = this;
@@ -377,7 +377,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pSC_USER_STATUS_ID", Value = ob.SC_USER_STATUS_ID},
                     new CommandParameter() {ParameterName = "pPASSWORD_HASH", Value = ob.PASSWORD_HASH},
                     new CommandParameter() {ParameterName = "pMEMORABLE_TEXT", Value = ob.MEMORABLE_TEXT},
-                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pIS_USER_NEVER_EXPIRE", Value = ob.IS_USER_NEVER_EXPIRE},
                     new CommandParameter() {ParameterName = "pUSER_EXPIRE_ON", Value = ob.USER_EXPIRE_ON},
                     new CommandParameter() {ParameterName = "pIS_PWD_CNG_LOGON", Value = ob.IS_PWD_CNG_LOGON},
@@ -573,7 +573,7 @@ namespace ERP.Model
             }
         }
 
-        public string saveRoleData(Int64 SC_USER_ID, Int64 SC_ROLE_ID)
+        public string saveRoleData(Int64 SC_USER_ID, Int64 SC_ROLE_ID, long userId)
         {
             const string sp = "pkg_security.sc_user_insert";
             string vMsg = "";
@@ -586,7 +586,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = SC_USER_ID},
                     new CommandParameter() {ParameterName = "pSC_ROLE_ID", Value = SC_ROLE_ID},
                     new CommandParameter() {ParameterName = "pIS_ACTIVE", Value = "Y"},
-                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pOption", Value = 1001},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}
                 }, sp);
@@ -605,7 +605,7 @@ namespace ERP.Model
             return vMsg;
         }
 
-        public string updateRoleData(Int64 SC_USER_ID, Int64 SC_ROLE_ID, Int64 SC_USER_ROLE_ID)
+        public string updateRoleData(Int64 SC_USER_ID, Int64 SC_ROLE_ID, Int64 SC_USER_ROLE_ID, long userId)
         {
             const string sp = "pkg_security.sc_user_update";
             string vMsg = "";
@@ -618,7 +618,7 @@ namespace ERP.Model
                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = SC_USER_ID},
                     new CommandParameter() {ParameterName = "pSC_ROLE_ID", Value = SC_ROLE_ID},
                     new CommandParameter() {ParameterName = "pSC_USER_ROLE_ID", Value = SC_USER_ROLE_ID},
-                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = Convert.ToInt64(0 /* TODO MIGRATION: Pass userId as parameter - HttpContext.Current.Session["multiScUserId"] */)},
+                    new CommandParameter() {ParameterName = "pLAST_UPDATED_BY", Value = userId},
                     new CommandParameter() {ParameterName = "pOption", Value = 2001},
                     new CommandParameter() {ParameterName = "pMsg", Value = 200, Direction = ParameterDirection.Output}
                 }, sp);
