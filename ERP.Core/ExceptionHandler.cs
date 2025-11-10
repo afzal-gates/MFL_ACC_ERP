@@ -1,34 +1,32 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Http.ExceptionHandling;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace ERP.Core
 {
-    public class ExceptionHandler : IExceptionHandler
+    // Note: ASP.NET Core uses middleware for exception handling
+    // This class is kept for backwards compatibility but you should use
+    // app.UseExceptionHandler() in Program.cs instead
+
+    public class ExceptionHandler
     {
-        public Task HandleAsync(ExceptionHandlerContext context, CancellationToken cancellationToken)
+        public static async Task HandleExceptionAsync(HttpContext context, System.Exception exception)
         {
-            if (!ShouldHandle(context))
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+            var errorMessage = new ErrorMessage
             {
-                return Task.FromResult(0);
-            }
+                Message = exception.Message
+            };
 
-            return HandleAsyncCore(context, cancellationToken);
+            await context.Response.WriteAsJsonAsync(errorMessage);
         }
 
-        public virtual Task HandleAsyncCore(ExceptionHandlerContext context, CancellationToken cancellationToken)
+        public virtual bool ShouldHandle(System.Exception exception)
         {
-            HandleCore(context);
-            return Task.FromResult(0);
-        }
-
-        public virtual void HandleCore(ExceptionHandlerContext context)
-        {
-        }
-
-        public virtual bool ShouldHandle(ExceptionHandlerContext context)
-        {
-            return context.CatchBlock.IsTopLevel;
+            return true;
         }
     }
 }

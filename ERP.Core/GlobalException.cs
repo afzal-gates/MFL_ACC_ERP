@@ -1,23 +1,21 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web.Http;
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.Core
 {
-    public class GlobalException : IHttpActionResult
+    // In ASP.NET Core, use ObjectResult or specific result types instead of IHttpActionResult
+    public class GlobalException : ObjectResult
     {
-        public HttpRequestMessage Request { get; set; }
-        public HttpStatusCode StatusCode { get; set; }
-        public string Message { get; set; }
-
-        public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
+        public GlobalException(string message, HttpStatusCode statusCode = HttpStatusCode.InternalServerError)
+            : base(new ErrorMessage { Message = message })
         {
-            ErrorMessage message = new ErrorMessage { Message = Message };
-            HttpResponseMessage response = Request.CreateResponse(StatusCode, message);
+            StatusCode = (int)statusCode;
+        }
 
-            return Task.FromResult(response);
+        public GlobalException(ErrorMessage errorMessage, HttpStatusCode statusCode = HttpStatusCode.InternalServerError)
+            : base(errorMessage)
+        {
+            StatusCode = (int)statusCode;
         }
     }
 }

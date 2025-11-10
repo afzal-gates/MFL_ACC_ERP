@@ -1,33 +1,32 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ERP.Core
 {
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
     public class ModelValidationAttribute : ActionFilterAttribute
     {
-        public override void OnActionExecuting(HttpActionContext actionContext)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (actionContext.ModelState.IsValid == false)
+            if (context.ModelState.IsValid == false)
             {
                 var errors = new List<string>();
-                foreach (var modelStateVal in actionContext.ModelState.Values.Select(d => d.Errors))
+                foreach (var modelStateVal in context.ModelState.Values.Select(d => d.Errors))
                 {
-                    errors.AddRange(modelStateVal.Select(error => error.ErrorMessage));
+                    errors.AddRange(modelStateVal.Select(error => error.ErrorMessage ?? string.Empty));
                 }
+
                 ErrorMessage errorMessage = new ErrorMessage
                 {
-                    Message = string.Join(Environment.NewLine, errors.Select(x => x))
+                    Message = string.Join(Environment.NewLine, errors)
                 };
 
                 if (!string.IsNullOrWhiteSpace(errorMessage.Message))
                 {
-                    actionContext.Response = actionContext.Request.CreateResponse<ErrorMessage>(HttpStatusCode.BadRequest, errorMessage);
+                    context.Result = new BadRequestObjectResult(errorMessage);
                 }
             }
         }

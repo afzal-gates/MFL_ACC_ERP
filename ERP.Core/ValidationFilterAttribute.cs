@@ -1,40 +1,35 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Reflection;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
-
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ERP.Core
 {
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
     public class ValidationFilterAttribute : ActionFilterAttribute
     {
         private static readonly Dictionary<string, List<ParameterInfo>> CachedParameters = new Dictionary<string, List<ParameterInfo>>();
-        public override void OnActionExecuting(HttpActionContext actionContext)
-        {
-            Type[] types = actionContext.ActionArguments.Select(x => x.GetType()).ToArray();
-            string actionName = actionContext.ActionDescriptor.ActionName;
 
-            if (types.Length == 0)
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            if (context.ActionArguments == null || context.ActionArguments.Count == 0)
             {
                 return;
             }
 
-            Type contorller = actionContext.ControllerContext.Controller.GetType();
-
-            MethodInfo methodInfo = contorller.GetMethod(actionName);
+            string actionName = context.ActionDescriptor.DisplayName ?? string.Empty;
+            Type controllerType = context.Controller.GetType();
+            MethodInfo? methodInfo = controllerType.GetMethod(context.ActionDescriptor.DisplayName?.Split('.').Last() ?? string.Empty);
 
             if (methodInfo == null)
             {
                 return;
             }
 
-            List<ParameterInfo> parameters;
+            List<ParameterInfo>? parameters;
             // get parameters from cache
             CachedParameters.TryGetValue(actionName, out parameters);
 
@@ -47,20 +42,17 @@ namespace ERP.Core
                 CachedParameters.Add(actionName, parameters);
             }
 
-            Dictionary<string, object> data = new Dictionary<string, object>();
-
             ValidationContext validationContext = new ValidationContext(this);
             List<ValidationResult> errors = new List<ValidationResult>();
 
-            for (int i = 0; i < parameters.Count; i++)
+            foreach (var parameter in parameters)
             {
-                ParameterInfo parameter = parameters[i];
+                string name = parameter.Name ?? string.Empty;
 
-                string name = parameter.Name;
-                object value = actionContext.ActionArguments[name];
-
-                // add parameter name and value to dictionary
-                data.Add(parameters[i].Name, parameters[i]);
+                if (!context.ActionArguments.TryGetValue(name, out object? value))
+                {
+                    continue;
+                }
 
                 // validate parameter
                 validationContext.DisplayName = name;
@@ -71,18 +63,21 @@ namespace ERP.Core
                     Validator.TryValidateValue(value, validationContext, errors, validations);
                 }
             }
+
             string parameterMessage = string.Empty;
             if (errors.Any())
             {
                 parameterMessage = string.Join(Environment.NewLine, errors.Select(x => x.ErrorMessage));
             }
 
-
             if (!string.IsNullOrWhiteSpace(parameterMessage))
             {
-                ErrorMessage errorMessage = new ErrorMessage();
+                ErrorMessage errorMessage = new ErrorMessage
+                {
+                    Message = parameterMessage
+                };
 
-                actionContext.Response = actionContext.Request.CreateResponse<ErrorMessage>(HttpStatusCode.BadRequest, errorMessage);
+                context.Result = new BadRequestObjectResult(errorMessage);
             }
         }
     }

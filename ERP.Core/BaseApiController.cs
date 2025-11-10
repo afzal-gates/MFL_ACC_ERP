@@ -1,24 +1,24 @@
-﻿using System.Linq;
-using System.Security.Claims;
-using System.Web;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace ERP.Core
 {
     [Authorize]
     [ValidationFilter]
-    public class BaseApiController : ApiController
+    [ApiController]
+    public class BaseApiController : ControllerBase
     {
-   
         public string UserId
         {
             get
             {
-                var  contectxt = HttpContext.Current;
-                if (contectxt != null)
+                // ASP.NET Core uses HttpContext directly (not HttpContext.Current)
+                // Session needs to be configured in Program.cs/Startup
+                if (HttpContext?.Session != null)
                 {
-                  var  userId= contectxt.Session["multiScUserId"].ToString();
-                    if (userId != null)
+                    var userId = HttpContext.Session.GetString("multiScUserId");
+                    if (!string.IsNullOrEmpty(userId))
                     {
                         return userId;
                     }
@@ -26,6 +26,13 @@ namespace ERP.Core
 
                 return string.Empty;
             }
+        }
+
+        // Alternative: Use Claims-based authentication (recommended for ASP.NET Core)
+        public string GetUserIdFromClaims()
+        {
+            var userId = User?.FindFirst("UserId")?.Value;
+            return userId ?? string.Empty;
         }
     }
 }
