@@ -164,7 +164,7 @@ namespace ERPSolution.Controllers
             {
                 try
                 {
-                    jsonStr = ob.Save();
+                    jsonStr = ob.Save(this.UserId);
                 }
                 catch (Exception e)
                 {
@@ -213,7 +213,7 @@ namespace ERPSolution.Controllers
             {
                 try
                 {
-                    jsonStr = ob.Save();
+                    jsonStr = ob.Save(this.UserId);
                 }
                 catch (Exception e)
                 {
@@ -269,7 +269,7 @@ namespace ERPSolution.Controllers
             {
                 try
                 {
-                    jsonStr = ob.Save();
+                    jsonStr = ob.Save(this.UserId);
                 }
                 catch (Exception e)
                 {
@@ -518,7 +518,7 @@ namespace ERPSolution.Controllers
             {
                 try
                 {
-                    jsonStr = ob.Save();
+                    jsonStr = ob.Save(this.UserId);
                 }
                 catch (Exception e)
                 {
@@ -769,7 +769,7 @@ namespace ERPSolution.Controllers
         {
             try
             {
-                var obList = ob.Save();
+                var obList = ob.Save(this.UserId);
                 Hub.Clients.All.executedFromServer();
                 return Ok(obList);
             }
@@ -787,7 +787,7 @@ namespace ERPSolution.Controllers
         {
             try
             {
-                var obList = ob.Save();
+                var obList = ob.Save(this.UserId);
                 Hub.Clients.All.executedFromServer();
                 return Ok(obList);
             }
@@ -805,7 +805,7 @@ namespace ERPSolution.Controllers
         {
             try
             {
-                var obList = ob.Save();
+                var obList = ob.Save(this.UserId);
                 return Ok(obList);
             }
             catch (Exception e)
@@ -1022,7 +1022,7 @@ namespace ERPSolution.Controllers
             {
                 try
                 {
-                    jsonStr = ob.Save();
+                    jsonStr = ob.Save(this.UserId);
                 }
                 catch (Exception e)
                 {

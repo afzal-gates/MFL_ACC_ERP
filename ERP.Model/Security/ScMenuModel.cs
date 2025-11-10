@@ -559,12 +559,7 @@ namespace ERP.Model
                     obList.Add(ob);
                 }
 
-
-
-                HttpContext.Current.Session["multiUserMenuList"] = obUserMenuList;
-
-                //List<ScMenuModel> obUserMenuList1 = new List<ScMenuModel>();
-                //obUserMenuList1 = (List<ScMenuModel>)HttpContext.Current.Session["multiUserMenuList"];
+                // Session caching removed for JWT authentication - menu data should be managed client-side
 
                 return obList;
             }

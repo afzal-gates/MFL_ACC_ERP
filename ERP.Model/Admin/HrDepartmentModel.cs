@@ -65,15 +65,14 @@ namespace ERP.Model
 
 
 
-        public object GetSection4IncrProp()
+        public object GetSection4IncrProp(long userId, string userType = "")
         {
             string sp = "pkg_admin.hr_department_select";
             try
             {
                 int vOption = 3004;
-                //string vUsrTyp = Convert.ToString(HttpContext.Current.Session["multiUserType"]);
 
-                if (Convert.ToString(HttpContext.Current.Session["multiUserType"]) == "B")
+                if (userType == "B")
                     vOption = 3004;
                 
 

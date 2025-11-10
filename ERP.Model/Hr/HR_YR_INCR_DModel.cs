@@ -125,7 +125,7 @@ namespace ERP.Model
         //    }
         //}
 
-        public object GetEmpSearch4SpecialIncr(string pEMPLOYEE_CODE, Int64 pHR_INCR_MEMO_ID, Int64 pHR_YR_INCR_H_ID, long userId)
+        public object GetEmpSearch4SpecialIncr(string pEMPLOYEE_CODE, Int64 pHR_INCR_MEMO_ID, Int64 pHR_YR_INCR_H_ID, long userId, long employeeId)
         {
             string sp = "pkg_incriment.hr_yr_incr_h_select";
             try
@@ -137,8 +137,8 @@ namespace ERP.Model
                 var ds1 = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {
                      new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = pHR_YR_INCR_H_ID},
-                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},                     
+                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = employeeId},
+                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},
 
                      new CommandParameter() {ParameterName = "pOption", Value = 3011},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
@@ -158,7 +158,7 @@ namespace ERP.Model
                 int vIncrCurrAprvlLvl = 0;
 
                 var obList = new List<HR_YR_INCR_DModel>();
-                
+
                 var ds = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {
                      new CommandParameter() {ParameterName = "pEMPLOYEE_CODE", Value = pEMPLOYEE_CODE},
@@ -259,7 +259,7 @@ namespace ERP.Model
             }
         }
 
-        public object GetSpecialIncrDtl(Int64 pHR_YR_INCR_H_ID, long userId)
+        public object GetSpecialIncrDtl(Int64 pHR_YR_INCR_H_ID, long userId, long employeeId)
         {
             string sp = "pkg_incriment.hr_yr_incr_h_select";
             try
@@ -271,8 +271,8 @@ namespace ERP.Model
                 var ds1 = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {
                      new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = pHR_YR_INCR_H_ID},
-                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
-                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},                     
+                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = employeeId},
+                     new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},
 
                      new CommandParameter() {ParameterName = "pOption", Value = 3011},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
@@ -292,9 +292,9 @@ namespace ERP.Model
                 int vIncrCurrAprvlLvl = 0;
 
                 var obList = new List<HR_YR_INCR_DModel>();
-                
+
                 var ds = db.ExecuteStoredProcedure(new List<CommandParameter>()
-                {                     
+                {
                      new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = pHR_YR_INCR_H_ID},
                      new CommandParameter() {ParameterName = "pOption", Value = 3010},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output}
@@ -387,7 +387,7 @@ namespace ERP.Model
             }
         }
 
-        public object GetEmp4IncrProposal(Int64 pageNumber, Int64 pageSize, Int64? pHR_INCR_MEMO_ID, Int32? pEMPLOYEE_TYPE_ID, Int64? pHR_YR_INCR_H_ID, Int64? pHR_DEPARTMENT_ID, Int32? pLK_FLOOR_ID, long userId)
+        public object GetEmp4IncrProposal(Int64 pageNumber, Int64 pageSize, Int64? pHR_INCR_MEMO_ID, Int32? pEMPLOYEE_TYPE_ID, Int64? pHR_YR_INCR_H_ID, Int64? pHR_DEPARTMENT_ID, Int32? pLK_FLOOR_ID, long userId, long employeeId)
         {
             string sp = "pkg_incriment.hr_yr_incr_h_select";
             try
@@ -402,7 +402,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = pHR_YR_INCR_H_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = pHR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = (pLK_FLOOR_ID<1?null:pLK_FLOOR_ID)},
-                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
+                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = employeeId},
                      new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},                     
 
                      new CommandParameter() {ParameterName = "pOption", Value = 3006},
@@ -433,7 +433,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pEMPLOYEE_TYPE_ID", Value = pEMPLOYEE_TYPE_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = pHR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = pLK_FLOOR_ID},
-                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
+                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = employeeId},
                      new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},
                      
                      new CommandParameter() {ParameterName = "pageNumber", Value = pageNumber},

@@ -156,8 +156,8 @@ namespace ERPSolution.Areas.Hr.Controllers
             {
                 try
                 {
-                    vMsg = ob.Update();
-                    
+                    vMsg = ob.Update(this.UserId);
+
                 }
                 catch (Exception e)
                 {
@@ -197,7 +197,7 @@ namespace ERPSolution.Areas.Hr.Controllers
             {
                 try
                 {
-                    jsonStr = ob.Save();
+                    jsonStr = ob.Save(this.UserId);
 
                 }
                 catch (Exception e)

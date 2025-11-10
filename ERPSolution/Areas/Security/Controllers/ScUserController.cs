@@ -162,7 +162,7 @@ namespace ERPSolution.Areas.Security.Controllers
             {
                 try
                 {
-                    vMsg = ob1.SaveUser();
+                    vMsg = ob1.SaveUser(this.UserId);
 
                 }
                 catch (Exception e)
@@ -201,7 +201,7 @@ namespace ERPSolution.Areas.Security.Controllers
             {
                 try
                 {
-                    vMsg = ob2.Update();
+                    vMsg = ob2.Update(this.UserId);
 
                 }
                 catch (Exception e)
@@ -574,7 +574,7 @@ namespace ERPSolution.Areas.Security.Controllers
             {
                 try
                 {
-                    vMsg = ob.SaveChangePassword();
+                    vMsg = ob.SaveChangePassword(this.UserId);
 
                 }
                 catch (Exception e)

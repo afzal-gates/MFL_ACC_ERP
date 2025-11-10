@@ -40,7 +40,7 @@ namespace ERPSolution.Areas.Hr.Api
             {
                 try
                 {
-                    jsonStr = ob.Save();
+                    jsonStr = ob.Save(this.UserId);
                 }
                 catch (Exception e)
                 {

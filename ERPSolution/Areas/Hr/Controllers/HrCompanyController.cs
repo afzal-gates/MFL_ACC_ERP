@@ -25,7 +25,7 @@ namespace ERPSolution.Areas.Hr.Controllers
             string vMsg = "";
 
             if (ModelState.IsValid)
-                vMsg = ob.Update();
+                vMsg = ob.Update(this.UserId);
 
             return vMsg;
         }
@@ -34,10 +34,10 @@ namespace ERPSolution.Areas.Hr.Controllers
         public string Save(HrCompanyModel ob)
         {
             string vMsg = "";
-            
+
             if(ModelState.IsValid)
-                vMsg = ob.Save();
-            
+                vMsg = ob.Save(this.UserId);
+
             return vMsg;            
         }
 

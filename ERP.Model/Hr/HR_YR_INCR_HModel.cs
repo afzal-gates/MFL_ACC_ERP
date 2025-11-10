@@ -78,7 +78,7 @@ namespace ERP.Model
             }
         }
 
-        public HR_YR_INCR_HModel GetIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null, Int64? pHR_DEPARTMENT_ID = null, Int64? pLK_FLOOR_ID = null, Int64? pPROPOSE_BY = null, long userId = 0)
+        public HR_YR_INCR_HModel GetIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null, Int64? pHR_DEPARTMENT_ID = null, Int64? pLK_FLOOR_ID = null, Int64? pPROPOSE_BY = null, long userId = 0, long employeeId = 0)
         {
             string sp = "pkg_incriment.hr_yr_incr_h_select";
             try
@@ -95,7 +95,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = pHR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = (pLK_FLOOR_ID<1?null:pLK_FLOOR_ID)},
                      new CommandParameter() {ParameterName = "pPROPOSE_BY", Value = pPROPOSE_BY},
-                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
+                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = employeeId},
                      new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},                     
 
                      new CommandParameter() {ParameterName = "pOption", Value = 3006},
@@ -146,7 +146,7 @@ namespace ERP.Model
                 }
 
                 if (ob.PROPOSE_BY < 1 || ob.PROPOSE_BY==null)
-                    ob.PROPOSE_BY = Convert.ToInt64(HttpContext.Current.Session["multiLoginEmpId"]);
+                    ob.PROPOSE_BY = employeeId;
 
                 ob.USER_LEVEL = vUserLevel;
                 ob.USER_APROVER_LVL_NO = vUserApproverLvlNo;
@@ -159,7 +159,7 @@ namespace ERP.Model
             }
         }
 
-        public string IncrBatchSave(long userId)
+        public string IncrBatchSave(long userId, long employeeId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -182,9 +182,9 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pREASON_DESC", Value = ob.REASON_DESC},
                      new CommandParameter() {ParameterName = "pINCR_DTL_XML", Value = ob.INCR_DTL_XML},
                      new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
-                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
+                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = employeeId},
                      new CommandParameter() {ParameterName = "pUSER_LEVEL", Value = ob.USER_LEVEL},
-                     
+
                      new CommandParameter() {ParameterName = "pOption", Value = 1000},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
                      new CommandParameter() {ParameterName = "pIS_P_F_RTN", Direction = ParameterDirection.Output},
@@ -212,7 +212,7 @@ namespace ERP.Model
             }
         }
 
-        public string IncrProposeSave(long userId)
+        public string IncrProposeSave(long userId, long employeeId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -228,9 +228,9 @@ namespace ERP.Model
                      //new CommandParameter() {ParameterName = "pHR_OFFICE_ID", Value = ob.HR_OFFICE_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
-                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
+                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = employeeId},
                      new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
-                     
+
                      new CommandParameter() {ParameterName = "pOption", Value = 1001},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
                      new CommandParameter() {ParameterName = "pIS_P_F_RTN", Direction = ParameterDirection.Output},
@@ -258,7 +258,7 @@ namespace ERP.Model
             }
         }
 
-        public string IncrVeryficationSave(long userId)
+        public string IncrVeryficationSave(long userId, long employeeId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -272,9 +272,9 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = ob.HR_YR_INCR_H_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
-                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
+                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = employeeId},
                      new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
-                     
+
                      new CommandParameter() {ParameterName = "pOption", Value = 1002},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
                      new CommandParameter() {ParameterName = "pIS_P_F_RTN", Direction = ParameterDirection.Output},
@@ -302,7 +302,7 @@ namespace ERP.Model
             }
         }
 
-        public string IncrFinalizeSave(long userId)
+        public string IncrFinalizeSave(long userId, long employeeId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -316,9 +316,9 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = ob.HR_YR_INCR_H_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
-                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
+                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = employeeId},
                      new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
-                     
+
                      new CommandParameter() {ParameterName = "pOption", Value = 1003},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
                      new CommandParameter() {ParameterName = "pIS_P_F_RTN", Direction = ParameterDirection.Output},
@@ -389,7 +389,7 @@ namespace ERP.Model
             }
         }
 
-        public string SpecialIncrBatchSave(long userId)
+        public string SpecialIncrBatchSave(long userId, long employeeId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -412,9 +412,9 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pREASON_DESC", Value = ob.REASON_DESC},
                      new CommandParameter() {ParameterName = "pINCR_DTL_XML", Value = ob.INCR_DTL_XML},
                      new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
-                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
+                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = employeeId},
                      new CommandParameter() {ParameterName = "pUSER_LEVEL", Value = ob.USER_LEVEL},
-                     
+
                      new CommandParameter() {ParameterName = "pOption", Value = 1004},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
                      new CommandParameter() {ParameterName = "pIS_P_F_RTN", Direction = ParameterDirection.Output},
@@ -442,7 +442,7 @@ namespace ERP.Model
             }
         }
 
-        public HR_YR_INCR_HModel GetSpecialIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null, Int64? pPROPOSE_BY = null, long userId = 0)
+        public HR_YR_INCR_HModel GetSpecialIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null, Int64? pPROPOSE_BY = null, long userId = 0, long employeeId = 0)
         {
             string sp = "pkg_incriment.hr_yr_incr_h_select";
             try
@@ -457,7 +457,7 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pHR_INCR_MEMO_ID", Value = pHR_INCR_MEMO_ID},
 
                      new CommandParameter() {ParameterName = "pPROPOSE_BY", Value = pPROPOSE_BY},
-                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
+                     new CommandParameter() {ParameterName = "pHR_EMPLOYEE_ID", Value = employeeId},
                      new CommandParameter() {ParameterName = "pSC_USER_ID", Value = userId},                     
 
                      new CommandParameter() {ParameterName = "pOption", Value = 3011},
@@ -501,7 +501,7 @@ namespace ERP.Model
                 }
 
                 if (ob.PROPOSE_BY < 1 || ob.PROPOSE_BY == null)
-                    ob.PROPOSE_BY = Convert.ToInt64(HttpContext.Current.Session["multiLoginEmpId"]);
+                    ob.PROPOSE_BY = employeeId;
 
                 ob.USER_LEVEL = vUserLevel;
                 ob.USER_APROVER_LVL_NO = vUserApproverLvlNo;
@@ -514,7 +514,7 @@ namespace ERP.Model
             }
         }
 
-        public string SpecialIncrProposeSave(long userId)
+        public string SpecialIncrProposeSave(long userId, long employeeId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -526,9 +526,9 @@ namespace ERP.Model
                 var ds = db.ExecuteStoredProcedure(new List<CommandParameter>()
                 {
                      new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = ob.HR_YR_INCR_H_ID},
-                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
+                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = employeeId},
                      new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
-                     
+
                      new CommandParameter() {ParameterName = "pOption", Value = 1005},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
                      new CommandParameter() {ParameterName = "pIS_P_F_RTN", Direction = ParameterDirection.Output},
@@ -556,7 +556,7 @@ namespace ERP.Model
             }
         }
 
-        public string SpecialIncrFinalizeSave(long userId)
+        public string SpecialIncrFinalizeSave(long userId, long employeeId)
         {
             const string sp = "pkg_incriment.hr_yr_incr_h_save";
             string jsonStr = "{";
@@ -570,9 +570,9 @@ namespace ERP.Model
                      new CommandParameter() {ParameterName = "pHR_YR_INCR_H_ID", Value = ob.HR_YR_INCR_H_ID},
                      new CommandParameter() {ParameterName = "pLK_FLOOR_ID", Value = ob.LK_FLOOR_ID},
                      new CommandParameter() {ParameterName = "pHR_DEPARTMENT_ID", Value = ob.HR_DEPARTMENT_ID},
-                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = HttpContext.Current.Session["multiLoginEmpId"]},
+                     new CommandParameter() {ParameterName = "pPROPOSER_EMPLOYEE_ID", Value = employeeId},
                      new CommandParameter() {ParameterName = "pCREATED_BY", Value = userId},
-                     
+
                      new CommandParameter() {ParameterName = "pOption", Value = 1006},
                      new CommandParameter() {ParameterName = "pMsg", Value =500, Direction = ParameterDirection.Output},
                      new CommandParameter() {ParameterName = "pIS_P_F_RTN", Direction = ParameterDirection.Output},

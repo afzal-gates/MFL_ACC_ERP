@@ -48,11 +48,11 @@ namespace ERPSolution.Areas.Admin.Controllers
                 //{
                     if (ob.LOOKUP_DATA_ID<=0)
                     {
-                        Session["vMsg"] = ob.Save();
+                        Session["vMsg"] = ob.Save(this.UserId);
                     }
                     else
                     {
-                        Session["vMsg"] = ob.Update();
+                        Session["vMsg"] = ob.Update(this.UserId);
                     }
                     return RedirectToAction("LookupDataIndex", new { id=ob.LOOKUP_TABLE_ID });
                 //}
@@ -106,7 +106,7 @@ namespace ERPSolution.Areas.Admin.Controllers
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)
                 {
-                    vMsg = ob.Save();
+                    vMsg = ob.Save(this.UserId);
                     //return vMsg;
                 }
 
@@ -139,7 +139,7 @@ namespace ERPSolution.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     //Session["vMsg"] = obBLL.Update(ob);
-                    vMsg = ob.Update();
+                    vMsg = ob.Update(this.UserId);
 
                     //return RedirectToAction("Index");
                     //Redirect("/Admin/LookupTables/Index");
