@@ -1,6 +1,6 @@
 ﻿
 using System.Collections.Generic;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using ERP.BLL;
 using ERP.Model;
 using ERP.Core;
@@ -20,7 +20,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-voucher-types")]
         [HttpGet]
-        public IHttpActionResult SelectVoucherTypes()
+        public IActionResult SelectVoucherTypes()
         {
             return Ok(new ResponseMessage<List<ACC_VOUCHER_TYPEModel>>()
             {
@@ -30,7 +30,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-voucher-type")]
         [HttpGet]
-        public IHttpActionResult GetVoucherType(int voucherTypeId)
+        public IActionResult GetVoucherType(int voucherTypeId)
         {
             return Ok(new ResponseMessage<ACC_VOUCHER_TYPEModel>()
             {
@@ -41,9 +41,9 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("save-voucher-type")]
         [HttpPost]
         [ModelValidation]
-        public IHttpActionResult SaveVoucherType(ACC_VOUCHER_TYPEModel ob)
+        public IActionResult SaveVoucherType(ACC_VOUCHER_TYPEModel ob)
         {
-            
+
             return Ok(new ResponseMessage<string>()
             {
                 Result = _voucherTypeService.SaveVoucherType(ob)
@@ -52,7 +52,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("delete-voucher-type")]
         [HttpDelete]
-        public IHttpActionResult DeleteVoucherType(int id)
+        public IActionResult DeleteVoucherType(int id)
         {
 
             return Ok(new ResponseMessage<bool>()

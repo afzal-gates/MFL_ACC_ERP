@@ -4,20 +4,21 @@ using System.Collections;
 
 using System.Linq;
 using System.Net;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
+using ERP.Core;
 
 namespace ERPSolution.Areas.Hr.Api
 {
     [RoutePrefix("api/hr")]
-    //[System.Web.Http.Authorize]
-    public class HrIncrimentApiController : ApiController
+    //[Authorize]
+    public class HrIncrimentApiController : BaseApiController
     {
         
 
         [Route("HrIncriment/GetIncrMemoList")]
         [HttpGet]      
         // GET :  /api/hr/HrIncriment/GetIncrMemoList
-        public IHttpActionResult GetIncrMemoList(Int64 pageNumber, Int64 pageSize, string pAUTH_NO = null, string pRF_INCR_TYPE_ID_LST = null, string pINCR_TYPE_NAME_EN = null, string pCOMP_NAME_EN = null, 
+        public IActionResult GetIncrMemoList(Int64 pageNumber, Int64 pageSize, string pAUTH_NO = null, string pRF_INCR_TYPE_ID_LST = null, string pINCR_TYPE_NAME_EN = null, string pCOMP_NAME_EN = null,
             string pMEMO_NO = null, string pIS_FINALIZED = null, string pIS_CLOSED = null)
         {
             try
@@ -27,13 +28,13 @@ namespace ERPSolution.Areas.Hr.Api
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
         [Route("HrIncriment/Save")]
-        [HttpPost]        
-        public IHttpActionResult Save(HR_INCR_MEMOModel ob)
+        [HttpPost]
+        public IActionResult Save(HR_INCR_MEMOModel ob)
         {           
             string jsonStr = "";
             if (ModelState.IsValid)
@@ -63,8 +64,8 @@ namespace ERPSolution.Areas.Hr.Api
         }
 
         [Route("HrIncriment/MemoFinalize")]
-        [HttpPost]        
-        public IHttpActionResult MemoFinalize(HR_INCR_MEMOModel ob)
+        [HttpPost]
+        public IActionResult MemoFinalize(HR_INCR_MEMOModel ob)
         {
             string jsonStr = "";
             if (ModelState.IsValid)
@@ -96,9 +97,9 @@ namespace ERPSolution.Areas.Hr.Api
 
         //=======================
         [Route("HrIncriment/GetIncrBatchList")]
-        [HttpGet]        
+        [HttpGet]
         // GET :  /api/hr/HrIncriment/GetIncrBatchList?pHR_INCR_MEMO_ID=1
-        public IHttpActionResult GetIncrBatchList(Int64? pHR_INCR_MEMO_ID = null)
+        public IActionResult GetIncrBatchList(Int64? pHR_INCR_MEMO_ID = null)
         {
             try
             {
@@ -107,14 +108,14 @@ namespace ERPSolution.Areas.Hr.Api
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
         [Route("HrIncriment/GetIncrGradeList")]
-        [HttpGet]        
+        [HttpGet]
         // GET :  /api/hr/HrIncriment/GetIncrGradeList
-        public IHttpActionResult GetIncrGradeList(Int64? pHR_EMPLOYEE_TYPE_ID = null)
+        public IActionResult GetIncrGradeList(Int64? pHR_EMPLOYEE_TYPE_ID = null)
         {
             try
             {
@@ -123,31 +124,31 @@ namespace ERPSolution.Areas.Hr.Api
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
         [Route("HrIncriment/GetSection4IncrProp")]
-        [HttpGet]        
+        [HttpGet]
         // GET :  /api/hr/HrIncriment/GetSection4IncrProp
-        public IHttpActionResult GetSection4IncrProp()
+        public IActionResult GetSection4IncrProp()
         {
             try
             {
-                
+
                 var obList = new HrDepartmentModel().GetSection4IncrProp();
                 return Ok(obList);
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
         [Route("HrIncriment/GetFloor4IncrProp")]
-        [HttpGet]       
+        [HttpGet]
         // GET :  /api/hr/HrIncriment/GetFloor4IncrProp
-        public IHttpActionResult GetFloor4IncrProp()
+        public IActionResult GetFloor4IncrProp()
         {
             try
             {
@@ -156,14 +157,14 @@ namespace ERPSolution.Areas.Hr.Api
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
         [Route("HrIncriment/GetIncrHdr")]
-        [HttpGet]        
+        [HttpGet]
         // GET :  /api/hr/HrIncriment/GetIncrHdr
-        public IHttpActionResult GetIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null, Int64? pHR_DEPARTMENT_ID = null, Int64? pLK_FLOOR_ID = null)
+        public IActionResult GetIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null, Int64? pHR_DEPARTMENT_ID = null, Int64? pLK_FLOOR_ID = null)
         {
             try
             {
@@ -172,14 +173,14 @@ namespace ERPSolution.Areas.Hr.Api
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
         [Route("HrIncriment/GetEmp4IncrProposal")]
-        [HttpGet]        
+        [HttpGet]
         // GET :  /api/hr/HrIncriment/GetEmp4IncrProposal
-        public IHttpActionResult GetEmp4IncrProposal(Int64 pageNumber, Int64 pageSize, Int64? pHR_INCR_MEMO_ID = null, Int32? pEMPLOYEE_TYPE_ID = null, Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_DEPARTMENT_ID = null, Int32? pLK_FLOOR_ID = null)
+        public IActionResult GetEmp4IncrProposal(Int64 pageNumber, Int64 pageSize, Int64? pHR_INCR_MEMO_ID = null, Int32? pEMPLOYEE_TYPE_ID = null, Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_DEPARTMENT_ID = null, Int32? pLK_FLOOR_ID = null)
         {
             try
             {
@@ -188,14 +189,14 @@ namespace ERPSolution.Areas.Hr.Api
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
         [Route("HrIncriment/GetEmpIncrHistory")]
-        [HttpGet]        
+        [HttpGet]
         // GET :  /api/hr/HrIncriment/GetEmpIncrHistory
-        public IHttpActionResult GetEmpIncrHistory(Int64? pHR_EMPLOYEE_ID = null)
+        public IActionResult GetEmpIncrHistory(Int64? pHR_EMPLOYEE_ID = null)
         {
             try
             {
@@ -204,14 +205,14 @@ namespace ERPSolution.Areas.Hr.Api
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
-        
+
         [Route("HrIncriment/IncrBatchSave")]
-        [HttpPost]        
-        public IHttpActionResult IncrBatchSave(HR_YR_INCR_HModel ob)
+        [HttpPost]
+        public IActionResult IncrBatchSave(HR_YR_INCR_HModel ob)
         {
             string jsonStr = "";
             if (ModelState.IsValid)
@@ -241,8 +242,8 @@ namespace ERPSolution.Areas.Hr.Api
         }
 
         [Route("HrIncriment/IncrProposeSave")]
-        [HttpPost]        
-        public IHttpActionResult IncrProposeSave(HR_YR_INCR_HModel ob)
+        [HttpPost]
+        public IActionResult IncrProposeSave(HR_YR_INCR_HModel ob)
         {
             string jsonStr = "";
             if (ModelState.IsValid)
@@ -274,8 +275,8 @@ namespace ERPSolution.Areas.Hr.Api
         }
 
         [Route("HrIncriment/IncrVeryficationSave")]
-        [HttpPost]        
-        public IHttpActionResult IncrVeryficationSave(HR_YR_INCR_HModel ob)
+        [HttpPost]
+        public IActionResult IncrVeryficationSave(HR_YR_INCR_HModel ob)
         {
             string jsonStr = "";
             if (ModelState.IsValid)
@@ -307,8 +308,8 @@ namespace ERPSolution.Areas.Hr.Api
         }
 
         [Route("HrIncriment/IncrFinalizeSave")]
-        [HttpPost]        
-        public IHttpActionResult IncrFinalizeSave(HR_YR_INCR_HModel ob)
+        [HttpPost]
+        public IActionResult IncrFinalizeSave(HR_YR_INCR_HModel ob)
         {
             string jsonStr = "";
             if (ModelState.IsValid)
@@ -340,8 +341,8 @@ namespace ERPSolution.Areas.Hr.Api
         }
 
         [Route("HrIncriment/IncrEffectProcess")]
-        [HttpPost]        
-        public IHttpActionResult IncrEffectProcess(HR_INCR_MEMOModel ob)
+        [HttpPost]
+        public IActionResult IncrEffectProcess(HR_INCR_MEMOModel ob)
         {
             string jsonStr = "";
             if (ModelState.IsValid)
@@ -375,7 +376,7 @@ namespace ERPSolution.Areas.Hr.Api
         [Route("HrSpecialIncr/GetEmpSearch4SpecialIncr")]
         [HttpGet]
         // GET :  /api/hr/HrSpecialIncr/GetEmpSearch4SpecialIncr
-        public IHttpActionResult GetEmpSearch4SpecialIncr(string pEMPLOYEE_CODE, Int64 pHR_INCR_MEMO_ID, Int64 pHR_YR_INCR_H_ID)
+        public IActionResult GetEmpSearch4SpecialIncr(string pEMPLOYEE_CODE, Int64 pHR_INCR_MEMO_ID, Int64 pHR_YR_INCR_H_ID)
         {
             try
             {
@@ -384,13 +385,13 @@ namespace ERPSolution.Areas.Hr.Api
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
         [Route("HrSpecialIncr/SpecialIncrBatchSave")]
         [HttpPost]
-        public IHttpActionResult SpecialIncrBatchSave(HR_YR_INCR_HModel ob)
+        public IActionResult SpecialIncrBatchSave(HR_YR_INCR_HModel ob)
         {
             string jsonStr = "";
             if (ModelState.IsValid)
@@ -422,7 +423,7 @@ namespace ERPSolution.Areas.Hr.Api
         [Route("HrSpecialIncr/GetSpecialIncrHdr")]
         [HttpGet]
         // GET :  /api/hr/HrSpecialIncr/GetSpecialIncrHdr
-        public IHttpActionResult GetSpecialIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null)
+        public IActionResult GetSpecialIncrHdr(Int64? pHR_YR_INCR_H_ID = null, Int64? pHR_INCR_MEMO_ID = null)
         {
             try
             {
@@ -431,14 +432,14 @@ namespace ERPSolution.Areas.Hr.Api
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
         [Route("HrSpecialIncr/GetSpecialIncrDtl")]
         [HttpGet]
         // GET :  /api/hr/HrSpecialIncr/GetSpecialIncrDtl
-        public IHttpActionResult GetSpecialIncrDtl(Int64 pHR_YR_INCR_H_ID)
+        public IActionResult GetSpecialIncrDtl(Int64 pHR_YR_INCR_H_ID)
         {
             try
             {
@@ -447,13 +448,13 @@ namespace ERPSolution.Areas.Hr.Api
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
         [Route("HrSpecialIncr/SpecialIncrProposeSave")]
         [HttpPost]
-        public IHttpActionResult SpecialIncrProposeSave(HR_YR_INCR_HModel ob)
+        public IActionResult SpecialIncrProposeSave(HR_YR_INCR_HModel ob)
         {
             string jsonStr = "";
             if (ModelState.IsValid)
@@ -486,7 +487,7 @@ namespace ERPSolution.Areas.Hr.Api
 
         [Route("HrSpecialIncr/SpecialIncrFinalizeSave")]
         [HttpPost]
-        public IHttpActionResult SpecialIncrFinalizeSave(HR_YR_INCR_HModel ob)
+        public IActionResult SpecialIncrFinalizeSave(HR_YR_INCR_HModel ob)
         {
             string jsonStr = "";
             if (ModelState.IsValid)
@@ -520,7 +521,7 @@ namespace ERPSolution.Areas.Hr.Api
         [Route("HrSpecialIncr/GetSpecialIncrMemoList")]
         [HttpGet]
         // GET :  /api/hr/HrSpecialIncr/GetSpecialIncrMemoList
-        public IHttpActionResult GetSpecialIncrMemoList(string pAUTH_NO = null, string pRF_INCR_TYPE_ID_LST = null, string pINCR_TYPE_NAME_EN = null, string pCOMP_NAME_EN = null,
+        public IActionResult GetSpecialIncrMemoList(string pAUTH_NO = null, string pRF_INCR_TYPE_ID_LST = null, string pINCR_TYPE_NAME_EN = null, string pCOMP_NAME_EN = null,
             string pMEMO_NO = null, string pIS_FINALIZED = null, string pIS_CLOSED = null)
         {
             try
@@ -530,7 +531,7 @@ namespace ERPSolution.Areas.Hr.Api
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 

@@ -3,12 +3,12 @@ using ERP.Core;
 using ERP.Model.Accounting;
 using ERP.Shared;
 using System.Collections.Generic;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERPSolution.Areas.Accounting.Api
 {
     [RoutePrefix("api/accounting/cost-center-groups")]
-    public class CostCenterGroupsController : ApiController
+    public class CostCenterGroupsController : ControllerBase
     {
         private readonly ICostCenterGroupService costCenterGroupService;
         public CostCenterGroupsController(ICostCenterGroupService costCenterGroupService)
@@ -18,7 +18,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-cost-center-groups")]
         [HttpGet]
-        public IHttpActionResult GetCostCenterGroups()
+        public IActionResult GetCostCenterGroups()
         {
             return Ok(new ResponseMessage<List<ACC_COST_CENTER_GROUP>>()
             {
@@ -28,7 +28,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("save-cost-center-group")]
         [HttpPost]
-        public IHttpActionResult SaveCostCenterGroup([FromBody]ACC_COST_CENTER_GROUP model)
+        public IActionResult SaveCostCenterGroup([FromBody]ACC_COST_CENTER_GROUP model)
         {
             model.COMP_CODE = CompanyCode.comp_code;
             return Ok(new ResponseMessage<ACC_COST_CENTER_GROUP>()
@@ -39,7 +39,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("update-cost-center-group")]
         [HttpPut]
-        public IHttpActionResult UpdateCostCenterGroup(int id, [FromBody]ACC_COST_CENTER_GROUP model)
+        public IActionResult UpdateCostCenterGroup(int id, [FromBody]ACC_COST_CENTER_GROUP model)
         {
             model.COMP_CODE = CompanyCode.comp_code;
 
@@ -52,7 +52,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-cost-center-group")]
         [HttpGet]
-        public IHttpActionResult GetCostCenterGroup(int id)
+        public IActionResult GetCostCenterGroup(int id)
         {
             return Ok(new ResponseMessage<ACC_COST_CENTER_GROUP>()
             {
@@ -63,7 +63,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("delete-cost-center-group")]
         [HttpDelete]
-        public IHttpActionResult DeleteCostCenterGroup(int id)
+        public IActionResult DeleteCostCenterGroup(int id)
         {
             return Ok(new ResponseMessage<bool>()
             {

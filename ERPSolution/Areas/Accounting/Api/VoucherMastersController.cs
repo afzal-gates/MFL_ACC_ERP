@@ -7,7 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERPSolution.Areas.Accounting.Api
 {
@@ -31,7 +31,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-voucher-masters")]
         [HttpGet]
-        public IHttpActionResult GetVoucherMasters(string searchRefNo, string searchVhcNo, DateTime? searchDate, int pn, int ps)
+        public IActionResult GetVoucherMasters(string searchRefNo, string searchVhcNo, DateTime? searchDate, int pn, int ps)
         {
             int total = 0;
             dynamic voucherList = _voucherMasterService.GetVoucherMasters(searchRefNo, searchVhcNo, searchDate, pn, ps, out total);
@@ -44,7 +44,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-voucher-master")]
         [HttpGet]
-        public IHttpActionResult GetVoucherMaster(string id)
+        public IActionResult GetVoucherMaster(string id)
         {
 
             VoucherMasterViewModel model = new VoucherMasterViewModel
@@ -72,7 +72,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("save-voucher-master")]
         [HttpPost]
         [ModelValidation]
-        public IHttpActionResult SaveVoucherMaster([FromBody]ACC_VOUCHER_MASTER model)
+        public IActionResult SaveVoucherMaster([FromBody]ACC_VOUCHER_MASTER model)
         {
             model.COMP_CODE = CompanyCode.comp_code;
             model.EMPLOYEE_ID = base.UserId;
@@ -86,7 +86,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("update-voucher-master")]
         [HttpPut]
         [ModelValidation]
-        public IHttpActionResult UpdateVoucherMaster(int id, [FromBody]ACC_VOUCHER_MASTER model)
+        public IActionResult UpdateVoucherMaster(int id, [FromBody]ACC_VOUCHER_MASTER model)
         {
             model.COMP_CODE = CompanyCode.comp_code;
             model.EMPLOYEE_ID = base.UserId;
@@ -100,7 +100,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("delete-voucher-master")]
         [HttpDelete]
-        public IHttpActionResult DeleteVoucherMaster(int id)
+        public IActionResult DeleteVoucherMaster(int id)
         {
             string userId = base.UserId;
             return Ok(new ResponseMessage<bool>()
@@ -112,7 +112,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("save-tem-voucher-detail")]
         [HttpPost]
         [ModelValidation]
-        public IHttpActionResult SaveTemVoucheDetail(ACC_TEMP_VOUCHER_DETAIL voucheDetail)
+        public IActionResult SaveTemVoucheDetail(ACC_TEMP_VOUCHER_DETAIL voucheDetail)
         {
             voucheDetail.COMP_CODE = CompanyCode.comp_code;
             voucheDetail.USER_ID = base.UserId;
@@ -124,7 +124,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-voucher-temp-details")]
         [HttpGet]
-        public IHttpActionResult GetTempVoucheDetail()
+        public IActionResult GetTempVoucheDetail()
         {
             var compCode = CompanyCode.comp_code;
             var userId = base.UserId;
@@ -156,7 +156,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("delete-tem-voucher-detail")]
         [HttpDelete]
-        public IHttpActionResult DeleteTemVoucheDetail(int id)
+        public IActionResult DeleteTemVoucheDetail(int id)
         {
             var userId = base.UserId;
             bool isDeleted = _voucherMasterService.DeleteTemVoucheDetail(id, userId);
@@ -168,7 +168,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-last-narration")]
         [HttpGet]
-        public IHttpActionResult GetLastNarration(string accountCode)
+        public IActionResult GetLastNarration(string accountCode)
         {
             var userId = base.UserId;
             return Ok(new ResponseMessage<string>()
@@ -179,7 +179,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-bank-reconcile-vouchers")]
         [HttpGet]
-        public IHttpActionResult GetBankReconsileVouchers(DateTime? fromDate,DateTime? toDate,string accountHead,int status)
+        public IActionResult GetBankReconsileVouchers(DateTime? fromDate,DateTime? toDate,string accountHead,int status)
         {
             var userId = base.UserId;
             return Ok(new ResponseMessage<object>()
@@ -190,7 +190,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("update-bank-date")]
         [HttpPut]
-        public IHttpActionResult UpdateBankDate(int id,  DateTime? bankDate)
+        public IActionResult UpdateBankDate(int id,  DateTime? bankDate)
         {
             
                 return Ok(new ResponseMessage<bool>()
@@ -202,7 +202,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-pending-bills")]
         [HttpGet]
-        public IHttpActionResult GetPandingBills(string ac_code,string main_code,string sub_code,DateTime?fromDate,DateTime?toDate)
+        public IActionResult GetPandingBills(string ac_code,string main_code,string sub_code,DateTime?fromDate,DateTime?toDate)
         {
             return Ok(new ResponseMessage<object>()
             {
@@ -212,7 +212,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-payment-modes")]
         [HttpGet]
-        public IHttpActionResult GetPaymentModes(int voucherTypeId)
+        public IActionResult GetPaymentModes(int voucherTypeId)
         {
             return Ok(new ResponseMessage<object>()
             {
@@ -222,7 +222,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-lat-narration")]
         [HttpGet]
-        public IHttpActionResult GetLastNarrations()
+        public IActionResult GetLastNarrations()
         {
             return Ok(new ResponseMessage<string>()
             {

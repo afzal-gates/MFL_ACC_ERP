@@ -3,12 +3,12 @@ using ERP.Core;
 using ERP.Model.Accounting;
 using ERP.Shared;
 using System.Collections.Generic;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERPSolution.Areas.Accounting.Api
 {
     [RoutePrefix("api/accounting/chart-of-accounts")]
-    public class ChartOfAccountsController :ApiController
+    public class ChartOfAccountsController : ControllerBase
     {
         private readonly IChartOfAccountService _chartOfAccountService;
         public ChartOfAccountsController(IChartOfAccountService chartOfAccountService)
@@ -17,7 +17,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-chart-of-accounts")]
         [HttpGet]
-        public IHttpActionResult GetChartOfAccounts()
+        public IActionResult GetChartOfAccounts()
         {
             return Ok(new ResponseMessage<IEnumerable<TreeView>>()
             {
@@ -27,7 +27,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("save-chart-of-accounts")]
         [HttpPost]
-        public IHttpActionResult SaveChartOfAccounts([FromBody]TreeView model)
+        public IActionResult SaveChartOfAccounts([FromBody]TreeView model)
         {
             return Ok(new ResponseMessage<TreeView>()
             {
@@ -37,7 +37,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("update-chart-of-accounts")]
         [HttpPut]
-        public IHttpActionResult UpdateChartOfAccounts(string code, string controlCode, TreeView model)
+        public IActionResult UpdateChartOfAccounts(string code, string controlCode, TreeView model)
         {
             return Ok(new ResponseMessage<TreeView>()
             {
@@ -48,7 +48,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-account-heads")]
         [HttpGet]
-        public IHttpActionResult GetAccountHeards(string searchKey)
+        public IActionResult GetAccountHeards(string searchKey)
         {
             return Ok(new ResponseMessage<dynamic>()
             {
@@ -58,7 +58,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-account-main-heads")]
         [HttpGet]
-        public IHttpActionResult GetMainClassHeads()
+        public IActionResult GetMainClassHeads()
         {
             return Ok(new ResponseMessage<TreeView>()
             {

@@ -4,12 +4,12 @@ using ERP.Model.Accounting;
 using ERP.Shared;
 using ERPSolution.Areas.Accounting.Models;
 using System.Collections.Generic;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERPSolution.Areas.Accounting.Api
 {
    [RoutePrefix("api/accounting/cost-centers")]
-    public class CostCentersController : ApiController
+    public class CostCentersController : ControllerBase
     {
         private readonly ICostCenterService costCenterService;
         private readonly ICostCenterGroupService costCenterGroupService;
@@ -21,19 +21,19 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-cost-centers")]
         [HttpGet]
-        public IHttpActionResult GetCostCenters(string searchText,  int pn, int ps)
+        public IActionResult GetCostCenters(string searchText,  int pn, int ps)
         {
             int total = 0;
             return Ok(new ResponseMessage<List<ACC_COST_CENTER>>()
             {
                 Result = costCenterService.GetCostCenters(searchText, pn, ps, out total),Total=total
-                
+
             });
 
         }
         [Route("save-cost-center")]
         [HttpPost]
-        public IHttpActionResult SaveCostCenter([FromBody]ACC_COST_CENTER model)
+        public IActionResult SaveCostCenter([FromBody]ACC_COST_CENTER model)
         {
             return Ok(new ResponseMessage<ACC_COST_CENTER>()
             {
@@ -43,7 +43,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("update-cost-center")]
         [HttpPut]
-        public IHttpActionResult UpdateCostCenter(int id,[FromBody]ACC_COST_CENTER model)
+        public IActionResult UpdateCostCenter(int id,[FromBody]ACC_COST_CENTER model)
         {
             return Ok(new ResponseMessage<ACC_COST_CENTER>()
             {
@@ -53,7 +53,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-cost-center")]
         [HttpGet]
-        public IHttpActionResult GetCostCenter(int id)
+        public IActionResult GetCostCenter(int id)
         {
             CostCenterViewModel model = new CostCenterViewModel
             {
@@ -69,7 +69,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("delete-cost-center")]
         [HttpDelete]
-        public IHttpActionResult DeleteCostCenter(int id)
+        public IActionResult DeleteCostCenter(int id)
         {
             return Ok(new ResponseMessage<bool>()
             {
@@ -80,7 +80,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-cost-center-select-models")]
         [HttpGet]
-        public IHttpActionResult CostCenterSelectModels()
+        public IActionResult CostCenterSelectModels()
         {
             return Ok(new ResponseMessage<List<SelectModel>>()
             {

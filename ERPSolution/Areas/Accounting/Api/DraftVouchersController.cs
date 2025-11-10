@@ -6,7 +6,7 @@ using ERPSolution.Areas.Accounting.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERPSolution.Areas.Accounting.Api
 {
@@ -31,7 +31,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("get-draft-vouchers")]
         [HttpGet]
 
-        public IHttpActionResult GetVoucherQueues(string searchRefNo, string searchVhcNo, DateTime? searchDate, int pn, int ps)
+        public IActionResult GetVoucherQueues(string searchRefNo, string searchVhcNo, DateTime? searchDate, int pn, int ps)
         {
             int total = 0;
             dynamic voucherList = _voucherMasterService.GetVoucherMasters(searchRefNo, searchVhcNo, searchDate, pn, ps, out total);
@@ -43,7 +43,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-draft-voucher")]
         [HttpGet]
-        public IHttpActionResult GetVoucherQueue(string id)
+        public IActionResult GetVoucherQueue(string id)
         {
 
             VoucherMasterViewModel model = new VoucherMasterViewModel
@@ -71,7 +71,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("save-draft-voucher")]
         [HttpPost]
         [ModelValidation]
-        public IHttpActionResult SaveVoucherQueue([FromBody]ACC_VOUCHER_MASTER model)
+        public IActionResult SaveVoucherQueue([FromBody]ACC_VOUCHER_MASTER model)
         {
             model.COMP_CODE = CompanyCode.comp_code;
             model.EMPLOYEE_ID = base.UserId;
@@ -84,7 +84,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("update-draft-voucher")]
         [HttpPut]
         [ModelValidation]
-        public IHttpActionResult UpdateVoucherQueue(int id, [FromBody]ACC_VOUCHER_MASTER model)
+        public IActionResult UpdateVoucherQueue(int id, [FromBody]ACC_VOUCHER_MASTER model)
         {
             model.COMP_CODE = CompanyCode.comp_code;
             model.EMPLOYEE_ID = base.UserId;
@@ -97,7 +97,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("delete-draft-voucher")]
         [HttpDelete]
-        public IHttpActionResult DeleteVoucherMaster(int id)
+        public IActionResult DeleteVoucherMaster(int id)
         {
             string userId = base.UserId;
             return Ok(new ResponseMessage<bool>()
@@ -109,7 +109,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("save-tem-draft-voucher")]
         [HttpPost]
         [ModelValidation]
-        public IHttpActionResult SaveTemVoucheDetail(ACC_TEMP_VOUCHER_DETAIL voucheDetail)
+        public IActionResult SaveTemVoucheDetail(ACC_TEMP_VOUCHER_DETAIL voucheDetail)
         {
             voucheDetail.COMP_CODE = CompanyCode.comp_code;
             voucheDetail.USER_ID = base.UserId;
@@ -121,7 +121,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-temp-draft-vouchers")]
         [HttpGet]
-        public IHttpActionResult GetTempVoucheDetail()
+        public IActionResult GetTempVoucheDetail()
         {
             var compCode = CompanyCode.comp_code;
             var userId = base.UserId;
@@ -153,7 +153,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("delete-temp-draft-voucher")]
         [HttpDelete]
-        public IHttpActionResult DeleteTemVoucheDetail(int id)
+        public IActionResult DeleteTemVoucheDetail(int id)
         {
             var userId = base.UserId;
             bool isDeleted = _voucherMasterService.DeleteTemVoucheDetail(id, userId);
@@ -164,7 +164,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-last-narration")]
         [HttpGet]
-        public IHttpActionResult GetLastNarration(string accountCode)
+        public IActionResult GetLastNarration(string accountCode)
         {
             var userId = base.UserId;
             return Ok(new ResponseMessage<string>()

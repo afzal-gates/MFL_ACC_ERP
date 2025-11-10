@@ -2,7 +2,7 @@
 using ERP.Core;
 using ERP.Model.Accounting;
 using System.Collections.Generic;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERPSolution.Areas.Accounting.Api
 {
@@ -17,7 +17,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-companies")]
         [HttpGet]
-        public IHttpActionResult GetCompanies()
+        public IActionResult GetCompanies()
         {
             return Ok(new ResponseMessage<List<ACC_COMPANY>>()
             {
@@ -29,7 +29,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("save-company")]
         [HttpPost]
         [ModelValidation]
-        public IHttpActionResult SaveCompany([FromBody]ACC_COMPANY model)
+        public IActionResult SaveCompany([FromBody]ACC_COMPANY model)
         {
             return Ok(new ResponseMessage<bool>()
             {
@@ -41,7 +41,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("update-company")]
         [HttpPut]
         [ModelValidation]
-        public IHttpActionResult UpdateCompany(int id, [FromBody]ACC_COMPANY model)
+        public IActionResult UpdateCompany(int id, [FromBody]ACC_COMPANY model)
         {
             return Ok(new ResponseMessage<bool>()
             {
@@ -52,7 +52,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-company")]
         [HttpGet]
-        public IHttpActionResult GetCompany(int id)
+        public IActionResult GetCompany(int id)
         {
             return Ok(new ResponseMessage<ACC_COMPANY>()
             {
@@ -63,7 +63,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("delete-company")]
         [HttpDelete]
-        public IHttpActionResult DeleteCompany(int id)
+        public IActionResult DeleteCompany(int id)
         {
             return Ok(new ResponseMessage<bool>()
             {

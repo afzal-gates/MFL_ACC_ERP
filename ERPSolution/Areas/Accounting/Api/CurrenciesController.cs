@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using ERP.Shared;
 
 namespace ERPSolution.Areas.Accounting.Api
@@ -21,7 +21,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-currencies")]
         [HttpGet]
-        public IHttpActionResult GetCurrencies()
+        public IActionResult GetCurrencies()
         {
             return Ok(new ResponseMessage<List<ACC_CURRENCY>>()
             {
@@ -32,7 +32,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("save-currency")]
         [HttpPost]
         [ModelValidation]
-        public IHttpActionResult SaveCurrency([FromBody]ACC_CURRENCY model)
+        public IActionResult SaveCurrency([FromBody]ACC_CURRENCY model)
         {
             model.COMP_CODE = CompanyCode.comp_code;
             return Ok(new ResponseMessage<bool>()
@@ -45,7 +45,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("update-currency")]
         [HttpPut]
         [ModelValidation]
-        public IHttpActionResult UpdateCurrency(int id, [FromBody]ACC_CURRENCY model)
+        public IActionResult UpdateCurrency(int id, [FromBody]ACC_CURRENCY model)
         {
             return Ok(new ResponseMessage<bool>()
             {
@@ -56,7 +56,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-currency")]
         [HttpGet]
-        public IHttpActionResult GetCurrency(int id)
+        public IActionResult GetCurrency(int id)
         {
             return Ok(new ResponseMessage<ACC_CURRENCY>()
             {
@@ -66,7 +66,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("delete-currency")]
         [HttpDelete]
-        public IHttpActionResult DeleteCurrency(int id)
+        public IActionResult DeleteCurrency(int id)
         {
             return Ok(new ResponseMessage<bool>()
             {

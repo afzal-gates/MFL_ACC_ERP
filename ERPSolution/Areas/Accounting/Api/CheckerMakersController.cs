@@ -4,12 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERPSolution.Areas.Accounting.Api
 {
-    [System.Web.Http.RoutePrefix("api/accounting/checker-makers")]
-    public class CheckerMakersController :ApiController
+    [RoutePrefix("api/accounting/checker-makers")]
+    public class CheckerMakersController : ControllerBase
     {
         public readonly ICheckerMakerService checkerMakerService;
         public CheckerMakersController(ICheckerMakerService checkerMakerService)
@@ -19,7 +19,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("update-vocher-master-post-id")]
         [HttpPost]
-        public IHttpActionResult UpdateCheckerMaker()
+        public IActionResult UpdateCheckerMaker()
         {
             return Ok(new ResponseMessage<int>()
             {
@@ -30,7 +30,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("update-bill-reconciliation")]
         [HttpPost]
-        public IHttpActionResult UpdateBillReconciliation()
+        public IActionResult UpdateBillReconciliation()
         {
             return Ok(new ResponseMessage<int>()
             {

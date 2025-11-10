@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using ERP.Shared;
 
 namespace ERPSolution.Areas.Accounting.Api
@@ -23,7 +23,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-stock-closings")]
         [HttpGet]
-        public IHttpActionResult GetMonthlyStockClosing(int month_code,int year_code)
+        public IActionResult GetMonthlyStockClosing(int month_code,int year_code)
         {
             StockCloasingViewModel model = new StockCloasingViewModel();
             model.Stocks = stockClosingService.GetMonthlyStockClosing(month_code, year_code);
@@ -42,7 +42,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("save-stock-closing")]
         [HttpPost]
         [ModelValidation]
-        public IHttpActionResult SaveMonthlyStockClosing([FromBody]ACC_STOCK_CLOSING model)
+        public IActionResult SaveMonthlyStockClosing([FromBody]ACC_STOCK_CLOSING model)
         {
             model.COMP_CODE = CompanyCode.comp_code;
             int id= stockClosingService.SaveMonthlyStockClosing(model);
@@ -55,7 +55,7 @@ namespace ERPSolution.Areas.Accounting.Api
         [Route("save-monthly-stock-ledger")]
         [HttpPost]
         [ModelValidation]
-        public IHttpActionResult SaveMonthlyStockClosingToAccounts(int year_code,int month_code)
+        public IActionResult SaveMonthlyStockClosingToAccounts(int year_code,int month_code)
         {
 
             int id = stockClosingService.UpdateMonthlyStockClosing(year_code, month_code,base.UserId,CompanyCode.comp_code);

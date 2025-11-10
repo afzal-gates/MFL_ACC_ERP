@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using ERP.BLL;
 using ERP.Core;
 using ERP.Model.Accounting;
@@ -20,7 +20,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-chart-of-accounts")]
         [HttpGet]
-        public IHttpActionResult GetChartOfAccounts()
+        public IActionResult GetChartOfAccounts()
         {
 
             return Ok(new ResponseMessage<IEnumerable<TreeView>>()
@@ -31,7 +31,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-control-chart-of-accounts")]
         [HttpGet]
-        public IHttpActionResult GetThreeLayerChartOfAccounts()
+        public IActionResult GetThreeLayerChartOfAccounts()
         {
 
             return Ok(new ResponseMessage<IEnumerable<TreeView>>()
@@ -42,7 +42,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("save-chart-of-accounts")]
         [HttpPost]
-        public IHttpActionResult SaveChartOfAccounts([FromBody]TreeView model)
+        public IActionResult SaveChartOfAccounts([FromBody]TreeView model)
         {
             return Ok(new ResponseMessage<TreeView>()
             {
@@ -52,7 +52,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("update-chart-of-accounts")]
         [HttpPut]
-        public IHttpActionResult UpdateChartOfAccounts(string code, string controlCode, TreeView model)
+        public IActionResult UpdateChartOfAccounts(string code, string controlCode, TreeView model)
         {
             return Ok(new ResponseMessage<TreeView>()
             {
@@ -63,7 +63,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-account-heads")]
         [HttpGet]
-        public IHttpActionResult GetAccountHeards(string searchKey)
+        public IActionResult GetAccountHeards(string searchKey)
         {
             return Ok(new ResponseMessage<List<ACC_SUB_CLASSModel>>()
             {
@@ -73,7 +73,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("get-account-main-heads")]
         [HttpGet]
-        public IHttpActionResult GetMainClassHeads()
+        public IActionResult GetMainClassHeads()
         {
             return Ok(new ResponseMessage<TreeView>()
             {
@@ -82,7 +82,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-cash-account-heads")]
         [HttpGet]
-        public IHttpActionResult GetCashGlHeads()
+        public IActionResult GetCashGlHeads()
         {
             const string cashMapCode = Heads.CashHeads;
             return Ok(new ResponseMessage<List<SelectModel>>()
@@ -92,7 +92,7 @@ namespace ERPSolution.Areas.Accounting.Api
         }
         [Route("get-bank-account-heads")]
         [HttpGet]
-        public IHttpActionResult GetBankGlHeads()
+        public IActionResult GetBankGlHeads()
         {
              const string bankMapCode = Heads.BankHeads;
             return Ok(new ResponseMessage<List<SelectModel>>()
@@ -103,7 +103,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("check-gl-transaction")]
         [HttpGet]
-        public IHttpActionResult CheckGlTransactionExist(string gl_code, string control_code)
+        public IActionResult CheckGlTransactionExist(string gl_code, string control_code)
         {
             return Ok(new ResponseMessage<bool>()
             {
@@ -113,7 +113,7 @@ namespace ERPSolution.Areas.Accounting.Api
 
         [Route("delete-gl-account")]
         [HttpDelete]
-        public IHttpActionResult DeleteGlAccount(string gl_code, string control_code,int id)
+        public IActionResult DeleteGlAccount(string gl_code, string control_code,int id)
         {
             return Ok(new ResponseMessage<bool>()
             {
