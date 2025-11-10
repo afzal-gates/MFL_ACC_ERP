@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web;
+using Microsoft.AspNetCore.Http;
 using System.Data;
 using ERP.DAL;
 
@@ -167,7 +167,7 @@ namespace ERP.Model
         public string TIN_NO { get; set; }
         
         public byte[] EMP_PHOTO { get; set; }        
-        public HttpPostedFileBase ATT_FILE { get; set; }
+        public IFormFile? ATT_FILE { get; set; }
         public string EMP_PHOTO_PREVIEW { get; set; }
 
         public string EMP_SIGN { get; set; }
