@@ -67,6 +67,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
+// Register Exception Handler
+builder.Services.AddExceptionHandler<ERP.Core.GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 // Register JWT Token Service
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
@@ -79,9 +83,11 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+// Use custom exception handler for all environments
+app.UseExceptionHandler(options => { });
+
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
